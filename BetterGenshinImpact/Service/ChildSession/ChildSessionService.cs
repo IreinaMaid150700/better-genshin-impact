@@ -1,3 +1,4 @@
+using BetterGenshinImpact.Service.I18n;
 using System;
 using System.ComponentModel;
 using System.IO;
@@ -220,21 +221,21 @@ public sealed class ChildSessionService : IDisposable
         ThrowIfDisposed();
         EnsureDesktopWindow().RdpHost.SetSmartSizing(enabled);
         _config.SmartSizingEnabled = enabled;
-        RefreshState(enabled ? "窗口显示模式已切换为自适应" : "窗口显示模式已切换为 1:1");
+        RefreshState(enabled ? I18nService.Instance.Translate("窗口显示模式已切换为自适应") : I18nService.Instance.Translate("窗口显示模式已切换为 1:1"));
     }
 
     public void SetKeepAspectRatio(bool enabled)
     {
         ThrowIfDisposed();
         _config.KeepAspectRatio = enabled;
-        RefreshState(enabled ? "桌面分身窗口将保持宽高比" : "桌面分身窗口不再保持宽高比");
+        RefreshState(enabled ? I18nService.Instance.Translate("桌面分身窗口将保持宽高比") : I18nService.Instance.Translate("桌面分身窗口不再保持宽高比"));
     }
 
     public void SetTopmost(bool enabled)
     {
         ThrowIfDisposed();
         _config.TopmostEnabled = enabled;
-        RefreshState(enabled ? "桌面分身窗口已置顶" : "桌面分身窗口已取消置顶");
+        RefreshState(enabled ? I18nService.Instance.Translate("桌面分身窗口已置顶") : I18nService.Instance.Translate("桌面分身窗口已取消置顶"));
     }
 
     public bool SetSendSystemShortcutsToRemote(bool enabled)
@@ -249,11 +250,11 @@ public sealed class ChildSessionService : IDisposable
         _config.SendSystemShortcutsToRemote = enabled;
         var window = EnsureDesktopWindow();
         window.RdpHost.SetSendSystemShortcutsToRemote(enabled);
-        var target = enabled ? "桌面分身" : "本机";
+        var target = enabled ? I18nService.Instance.Translate("桌面分身") : I18nService.Instance.Translate("本机");
         return ReconnectForRdpSettingChange(
             window,
             RdpSettingChange.SystemShortcuts,
-            $"系统组合键已改为在{target}生效");
+            string.Format(I18nService.Instance.Translate("系统组合键已改为在{0}生效"), target));
     }
 
     public bool SetAudioMuted(bool muted)
@@ -270,7 +271,7 @@ public sealed class ChildSessionService : IDisposable
         return ReconnectForRdpSettingChange(
             window,
             RdpSettingChange.Audio,
-            muted ? "桌面分身声音已关闭" : "桌面分身声音已开启");
+            muted ? I18nService.Instance.Translate("桌面分身声音已关闭") : I18nService.Instance.Translate("桌面分身声音已开启"));
     }
 
     public void SetGameMouseModeEnabled(bool enabled)
@@ -280,7 +281,7 @@ public sealed class ChildSessionService : IDisposable
         _config.GameMouseModeEnabled = enabled;
         RefreshState(enabled
             ? "已切换为游戏鼠标模式"
-            : "已切换为普通鼠标模式");
+            : I18nService.Instance.Translate("已切换为普通鼠标模式"));
     }
 
     public void SetWatchModeEnabled(bool enabled)
@@ -290,7 +291,7 @@ public sealed class ChildSessionService : IDisposable
         _desktopWindow?.RdpHost.SetInputBlocked(enabled);
         RefreshState(enabled
             ? "已进入观看模式，本机鼠标和键盘不会进入桌面分身"
-            : "已退出观看模式，可以操作桌面分身");
+            : I18nService.Instance.Translate("已退出观看模式，可以操作桌面分身"));
     }
 
     public Task LaunchBetterGiAsync()
@@ -356,7 +357,7 @@ public sealed class ChildSessionService : IDisposable
             _desktopWindow?.Hide();
             RefreshState(terminatedSessionId is null
                 ? "当前没有桌面分身会话，桌面分身窗口已隐藏"
-                : $"桌面分身会话 {terminatedSessionId.Value} 已注销，桌面分身窗口已隐藏");
+                : string.Format(I18nService.Instance.Translate("桌面分身会话 {0} 已注销，桌面分身窗口已隐藏"), terminatedSessionId.Value));
         }
         finally
         {
@@ -384,16 +385,16 @@ public sealed class ChildSessionService : IDisposable
 
             var connectionText = ConnectedState switch
             {
-                0 => "未连接",
-                1 => "已连接",
-                2 => "正在连接",
-                _ => $"未知连接状态 {ConnectedState}"
+                0 => I18nService.Instance.Translate("未连接"),
+                1 => I18nService.Instance.Translate("已连接"),
+                2 => I18nService.Instance.Translate("正在连接"),
+                _ => string.Format(I18nService.Instance.Translate("未知连接状态 {0}"), ConnectedState)
             };
-            var sessionText = ChildSessionId?.ToString() ?? "无";
+            var sessionText = ChildSessionId?.ToString() ?? I18nService.Instance.Translate("无");
             var mainText = _lastOperationMessage ?? connectionText;
 
             StatusText =
-                $"{mainText} | RDP：{connectionText} | 桌面分身会话：{sessionText} | 功能已启用：{enabled}";
+                string.Format(I18nService.Instance.Translate("{0} | RDP：{1} | 桌面分身会话：{2} | 功能已启用：{3}"), mainText, connectionText, sessionText, enabled);
         }
         catch (Exception exception) when (IsExpectedChildSessionException(exception))
         {
@@ -532,7 +533,7 @@ public sealed class ChildSessionService : IDisposable
             var childSessionId = GetRequiredChildSessionId();
             RefreshState(isAutomatic
                 ? "桌面分身已加载，正在自动以管理员权限启动 BetterGI"
-                : "正在以管理员权限启动 BetterGI");
+                : I18nService.Instance.Translate("正在以管理员权限启动 BetterGI"));
             await ChildSessionProcessLauncher.LaunchBetterGiAsync(childSessionId);
             RefreshState(
                 $"已在桌面分身（会话 {childSessionId}）中以管理员权限启动 BetterGI");

@@ -1,3 +1,4 @@
+using BetterGenshinImpact.Service.I18n;
 using BetterGenshinImpact.Core.Input;
 using BetterGenshinImpact.Core.Input.Backends.Win32;
 using BetterGenshinImpact.Core.Script;
@@ -308,7 +309,7 @@ public sealed class GameRuntimeService
             return true;
         }
 
-        ThemedMessageBox.Error("触发器触发频率必须大于0");
+        ThemedMessageBox.Error(I18nService.Instance.Translate("触发器触发频率必须大于0"));
         return false;
     }
 

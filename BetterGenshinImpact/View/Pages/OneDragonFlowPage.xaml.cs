@@ -1,3 +1,4 @@
+using BetterGenshinImpact.Service.I18n;
 using BetterGenshinImpact.ViewModel.Pages;
 using BetterGenshinImpact.ViewModel.Pages;
 using System.Windows;
@@ -62,7 +63,7 @@ public partial class OneDragonFlowPage
             // 检查是否有ScriptGroups
             if (ViewModel.ScriptGroups == null || !ViewModel.ScriptGroups.Any())
             {
-                Toast.Warning("没有找到配置组");
+                Toast.Warning(I18nService.Instance.Translate("没有找到配置组"));
                 return;
             }
             
@@ -93,7 +94,7 @@ public partial class OneDragonFlowPage
         }
         catch (Exception ex)
         {
-            Toast.Error($"添加任务组时出错: {ex.Message}");
+            Toast.Error(string.Format(I18nService.Instance.Translate("添加任务组时出错: {0}"), ex.Message));
         }
     }
     

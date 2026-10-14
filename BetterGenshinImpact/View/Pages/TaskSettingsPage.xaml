@@ -3594,7 +3594,7 @@
                     <ui:TextBlock Grid.Row="0"
                                   Grid.Column="0"
                                   FontTypography="Body"
-                                  Text="自动连招（实验）"
+                                  Text="{i18n:T 自动连招（实验）}"
                                   TextWrapping="Wrap" />
                     <ui:TextBlock Grid.Row="1"
                                   Grid.Column="0"
@@ -3614,7 +3614,7 @@
                                              Grid.Column="2"
                                              Margin="0,0,24,0"
                                              DisableCommand="{Binding StopSoloTaskCommand}"
-                                             DisableContent="停止"
+                                             DisableContent="{i18n:T 停止}"
                                              EnableCommand="{Binding SwitchAutoComboCommand}"
                                              EnableContent="{Binding SwitchAutoComboButtonText}"
                                              IsChecked="{Binding SwitchAutoComboEnabled}" />
@@ -3675,7 +3675,7 @@
                     <ui:TextBlock Grid.Row="2"
                                   Grid.Column="0"
                                   Foreground="{ui:ThemeResource TextFillColorTertiaryBrush}"
-                                  Text="必须使用 HTTPS 地址，否则密钥会明文传输；本机地址（localhost/127.0.0.1）除外；Anthropic 可留空使用官方地址，填写时不要带 /v1"
+                                  Text="{i18n:T 必须使用 HTTPS 地址，否则密钥会明文传输；本机地址（localhost/127.0.0.1）除外；Anthropic 可留空使用官方地址，填写时不要带 /v1}"
                                   TextWrapping="Wrap" />
                     <ui:TextBox Grid.Row="0"
                                 Grid.RowSpan="3"
@@ -3745,7 +3745,7 @@
                     <ui:TextBlock Grid.Row="1"
                                   Grid.Column="0"
                                   Foreground="{ui:ThemeResource TextFillColorTertiaryBrush}"
-                                  Text="注意保护好密钥"
+                                  Text="{i18n:T 注意保护好密钥}"
                                   TextWrapping="Wrap" />
                     <ui:PasswordBox Grid.Row="0"
                                     Grid.RowSpan="2"
@@ -3773,7 +3773,7 @@
                     <ui:TextBlock Grid.Row="1"
                                   Grid.Column="0"
                                   Foreground="{ui:ThemeResource TextFillColorTertiaryBrush}"
-                                  Text="追加给 LLM 的自定义要求，如“使用芭芭拉重击来输出”；留空则不注入"
+                                  Text="{i18n:T 追加给 LLM 的自定义要求，如“使用芭芭拉重击来输出”；留空则不注入}"
                                   TextWrapping="Wrap" />
                     <ui:TextBox Grid.Row="0"
                                 Grid.RowSpan="2"
@@ -3806,7 +3806,7 @@
                     <ui:TextBlock Grid.Row="1"
                                   Grid.Column="0"
                                   Foreground="{ui:ThemeResource TextFillColorTertiaryBrush}"
-                                  Text="“当前队伍”“元素反应”等小节由程序自动追加，无需填写；留空使用默认正文"
+                                  Text="{i18n:T “当前队伍”“元素反应”等小节由程序自动追加，无需填写；留空使用默认正文}"
                                   TextWrapping="Wrap" />
                     <ui:TextBox Grid.Row="0"
                                 Grid.RowSpan="2"
@@ -3839,7 +3839,7 @@
                     <ui:TextBlock Grid.Row="1"
                                   Grid.Column="0"
                                   Foreground="{ui:ThemeResource TextFillColorTertiaryBrush}"
-                                  Text="“当前队伍”小节由程序自动追加，无需填写；留空使用默认正文"
+                                  Text="{i18n:T “当前队伍”小节由程序自动追加，无需填写；留空使用默认正文}"
                                   TextWrapping="Wrap" />
                     <ui:TextBox Grid.Row="0"
                                 Grid.RowSpan="2"
@@ -3866,14 +3866,14 @@
                         </ui:TextBlock>
                         <ui:TextBlock Margin="0,4,0,0"
                                       Foreground="{ui:ThemeResource TextFillColorTertiaryBrush}"
-                                      Text="自定义角色的战术描述，未覆盖的角色使用内置描述；删除行即恢复内置描述；如重复只取第一个"
+                                      Text="{i18n:T 自定义角色的战术描述，未覆盖的角色使用内置描述；删除行即恢复内置描述；如重复只取第一个}"
                                       TextWrapping="Wrap" />
                     </StackPanel>
                     <ui:Button Grid.Column="1"
                                Margin="12,0,36,0"
                                VerticalAlignment="Center"
                                Command="{Binding AddAvatarDescriptionOverrideCommand}"
-                               Content="添加角色" />
+                               Content="{i18n:T 添加角色}" />
                 </Grid>
                 <ItemsControl Margin="16,0,36,16"
                               ItemsSource="{Binding Config.AutoComboBuildConfig.AvatarDescriptionOverrides}">
@@ -3902,7 +3902,7 @@
                                            VerticalAlignment="Center"
                                            Command="{Binding DataContext.RemoveAvatarDescriptionOverrideCommand, RelativeSource={RelativeSource AncestorType=Page}}"
                                            CommandParameter="{Binding}"
-                                           Content="删除" />
+                                           Content="{i18n:T 删除}" />
                             </Grid>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>

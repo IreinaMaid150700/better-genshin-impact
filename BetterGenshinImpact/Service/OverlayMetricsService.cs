@@ -4,6 +4,7 @@ using BetterGenshinImpact.Platform.Wine;
 using BetterGenshinImpact.Service.Interface;
 using LibreHardwareMonitor.Hardware;
 using Microsoft.Extensions.Logging;
+using BetterGenshinImpact.Service.I18n;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -254,7 +255,7 @@ public sealed class OverlayMetricsService : IDisposable
         AddMetric(items, config, OverlayMetricItem.PeakProcessingCost, _peakProcessingCostMs, value => $"{value:0}ms");
         AddMetric(items, config, OverlayMetricItem.CaptureCost, _captureCostMs, value => $"{value:0}ms");
         AddMetric(items, config, OverlayMetricItem.TriggerCost, _triggerCostMs, value => $"{value:0}ms");
-        AddMetric(items, config, OverlayMetricItem.SkippedTicks, skippedPerSecond, value => $"{value:0}次/秒");
+        AddMetric(items, config, OverlayMetricItem.SkippedTicks, skippedPerSecond, value => string.Format(I18nService.Instance.Translate("{0:0}次/秒"), value));
         AddMetric(items, config, OverlayMetricItem.GpuUsage, _gpuUsage, value => $"{value:0}%");
         AddMetric(items, config, OverlayMetricItem.CpuUsage, _cpuUsage, value => $"{value:0}%");
         AddMetric(items, config, OverlayMetricItem.MemoryUsage, _memoryUsage, value => $"{value:0}%");

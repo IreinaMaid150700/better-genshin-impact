@@ -1,3 +1,4 @@
+using BetterGenshinImpact.Service.I18n;
 using BetterGenshinImpact.Core.Config;
 using BetterGenshinImpact.Core.Script;
 using BetterGenshinImpact.Core.Script.Project;
@@ -306,7 +307,7 @@ public partial class TaskSettingsPageViewModel : ViewModel
     {
         var messageBox = new Wpf.Ui.Controls.MessageBox
         {
-            Title = "风险提示",
+            Title = I18nService.Instance.Translate("风险提示"),
             Content = "开启“领取奖励后扫描掉落物光柱”后，角色会在领奖完成后主动移动拾取。部分地脉花点位或特定配队下，可能因为移动范围较大而卡住。\n\n如果你愿意接受这个风险，请继续开启；否则将保持关闭。",
             PrimaryButtonText = "接受风险并开启",
             CloseButtonText = "不接受，保持关闭",
@@ -365,7 +366,7 @@ public partial class TaskSettingsPageViewModel : ViewModel
             OneDragonFlowViewModel.OnNavigatedTo();
             if (OneDragonFlowViewModel == null || OneDragonFlowViewModel.SelectedConfig == null)
             {
-                Toast.Warning("未设置任务!");
+                Toast.Warning(I18nService.Instance.Translate("未设置任务!"));
                 return;
             }
         }
@@ -428,7 +429,7 @@ public partial class TaskSettingsPageViewModel : ViewModel
         content = string.Empty;
         if (string.IsNullOrEmpty(Config.AutoGeniusInvokationConfig.StrategyName))
         {
-            Toast.Warning("请先选择策略");
+            Toast.Warning(I18nService.Instance.Translate("请先选择策略"));
             return true;
         }
 
@@ -436,7 +437,7 @@ public partial class TaskSettingsPageViewModel : ViewModel
 
         if (!File.Exists(path))
         {
-            Toast.Error("策略文件不存在");
+            Toast.Error(I18nService.Instance.Translate("策略文件不存在"));
             return true;
         }
 
@@ -517,7 +518,7 @@ public partial class TaskSettingsPageViewModel : ViewModel
     {
         if (string.IsNullOrEmpty(strategyName))
         {
-            UIDispatcherHelper.Invoke(() => { Toast.Warning("请先在下拉列表配置中选择战斗策略！"); });
+            UIDispatcherHelper.Invoke(() => { Toast.Warning(I18nService.Instance.Translate("请先在下拉列表配置中选择战斗策略！")); });
             path = string.Empty;
             return true;
         }
@@ -539,7 +540,7 @@ public partial class TaskSettingsPageViewModel : ViewModel
 
         if (!File.Exists(path) && !Directory.Exists(path))
         {
-            UIDispatcherHelper.Invoke(() => { Toast.Error("当前选择的自动战斗策略文件不存在"); });
+            UIDispatcherHelper.Invoke(() => { Toast.Error(I18nService.Instance.Translate("当前选择的自动战斗策略文件不存在")); });
             return true;
         }
 
@@ -743,7 +744,7 @@ public partial class TaskSettingsPageViewModel : ViewModel
         // 预检查：未建树时提示用户且不启动任务
         if (AutoComboRuntime.Session == null)
         {
-            UIDispatcherHelper.Invoke(() => { Toast.Warning("尚未构建行为树，请先运行一次自动连招任务完成建树"); });
+            UIDispatcherHelper.Invoke(() => { Toast.Warning(I18nService.Instance.Translate("尚未构建行为树，请先运行一次自动连招任务完成建树")); });
             return;
         }
 
@@ -786,7 +787,7 @@ public partial class TaskSettingsPageViewModel : ViewModel
         }
         catch (Exception e)
         {
-            UIDispatcherHelper.Invoke(() => Toast.Error($"拉取模型列表失败：{e.Message}"));
+            UIDispatcherHelper.Invoke(() => Toast.Error(string.Format(I18nService.Instance.Translate("拉取模型列表失败：{0}"), e.Message)));
         }
         finally
         {
@@ -1010,7 +1011,7 @@ public partial class TaskSettingsPageViewModel : ViewModel
 
             if (codes.Count == 0)
             {
-                Toast.Warning("没有有效的兑换码");
+                Toast.Warning(I18nService.Instance.Translate("没有有效的兑换码"));
                 return;
             }
 

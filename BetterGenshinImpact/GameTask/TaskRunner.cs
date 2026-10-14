@@ -1,3 +1,4 @@
+using BetterGenshinImpact.Service.I18n;
 using BetterGenshinImpact.Core.Input;
 using BetterGenshinImpact.Core.Script;
 using BetterGenshinImpact.GameTask.AutoGeniusInvokation.Exception;
@@ -148,7 +149,7 @@ public class TaskRunner
     {
         if (!TaskContext.Instance().IsInitialized)
         {
-            UIDispatcherHelper.Invoke(() => { Toast.Warning("请先在启动页，启动截图器再使用本功能"); });
+            UIDispatcherHelper.Invoke(() => { Toast.Warning(I18nService.Instance.Translate("请先在启动页，启动截图器再使用本功能")); });
             throw new NormalEndException("请先在启动页，启动截图器再使用本功能");
         }
 

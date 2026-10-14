@@ -1,3 +1,4 @@
+using BetterGenshinImpact.Service.I18n;
 using BetterGenshinImpact.Core.Config;
 using BetterGenshinImpact.Core.Mask;
 using BetterGenshinImpact.Core.Monitor;
@@ -285,7 +286,7 @@ public partial class HomePageViewModel : ViewModel, IDisposable
             }
             else
             {
-                ThemedMessageBox.Error("选择的窗体句柄为空");
+                ThemedMessageBox.Error(I18nService.Instance.Translate("选择的窗体句柄为空"));
             }
         }
     }
@@ -306,7 +307,7 @@ public partial class HomePageViewModel : ViewModel, IDisposable
             }
             else
             {
-                ThemedMessageBox.Error("选择的窗体句柄为空！");
+                ThemedMessageBox.Error(I18nService.Instance.Translate("选择的窗体句柄为空！"));
             }
         }
     }
@@ -640,7 +641,7 @@ public partial class HomePageViewModel : ViewModel, IDisposable
         // 创建 TitleBar
         var titleBar = new Wpf.Ui.Controls.TitleBar
         {
-            Title = "启动参数说明",
+            Title = I18nService.Instance.Translate("启动参数说明"),
             Icon = new ImageIcon
             {
                 Source = new System.Windows.Media.Imaging.BitmapImage(new Uri(@"pack://application:,,,/Resources/Images/logo.png", UriKind.Absolute))
@@ -674,7 +675,7 @@ public partial class HomePageViewModel : ViewModel, IDisposable
     {
         var dialogWindow = new FluentWindow
         {
-            Title = "硬件加速设置",
+            Title = I18nService.Instance.Translate("硬件加速设置"),
             Content = new HardwareAccelerationView(new HardwareAccelerationViewModel()),
             Width = 800,
             Height = 600,
@@ -766,7 +767,7 @@ public partial class HomePageViewModel : ViewModel, IDisposable
             _logger.LogError(ex, "下载自定义背景图片url失败，使用现有背景图片");
             if (showErrorToast)
             {
-                Toast.Error($"下载自定义背景图片url失败：{ex.Message}");
+                Toast.Error(string.Format(I18nService.Instance.Translate("下载自定义背景图片url失败：{0}"), ex.Message));
             }
 
             LoadFallbackBannerImage();
@@ -810,7 +811,7 @@ public partial class HomePageViewModel : ViewModel, IDisposable
         {
             var openFileDialog = new OpenFileDialog
             {
-                Title = "选择背景图片",
+                Title = I18nService.Instance.Translate("选择背景图片"),
                 Filter = "图片文件|*.jpg;*.jpeg;*.png;*.bmp;*.gif|所有文件|*.*",
                 Multiselect = false
             };
@@ -839,13 +840,13 @@ public partial class HomePageViewModel : ViewModel, IDisposable
                 bitmap.CreateOptions = BitmapCreateOptions.IgnoreImageCache; 
                 bitmap.EndInit();
                 BannerImageSource = bitmap;
-                Toast.Success("背景图片更换成功！");
+                Toast.Success(I18nService.Instance.Translate("背景图片更换成功！"));
             }
         }
         catch (Exception ex)
         {
             _logger.LogError(ex, "更换背景图片失败");
-            Toast.Error($"更换背景图片失败: {ex.Message}");
+            Toast.Error(string.Format(I18nService.Instance.Translate("更换背景图片失败: {0}"), ex.Message));
         }
     }
 
@@ -872,7 +873,7 @@ public partial class HomePageViewModel : ViewModel, IDisposable
         catch (Exception ex)
         {
             _logger.LogError(ex, "更换背景图片失败");
-            Toast.Error($"更换背景图片失败: {ex.Message}");
+            Toast.Error(string.Format(I18nService.Instance.Translate("更换背景图片失败: {0}"), ex.Message));
         }
     }
 
@@ -897,7 +898,7 @@ public partial class HomePageViewModel : ViewModel, IDisposable
         catch (Exception ex)
         {
             _logger.LogError(ex, "刷新背景图片失败");
-            Toast.Error($"刷新背景图片失败: {ex.Message}");
+            Toast.Error(string.Format(I18nService.Instance.Translate("刷新背景图片失败: {0}"), ex.Message));
         }
     }
 
@@ -926,12 +927,12 @@ public partial class HomePageViewModel : ViewModel, IDisposable
             }
             _bannerImageService.ResetNetworkImage();
             IsCustomNetworkBanner = false;
-            Toast.Success("已恢复为默认背景图片！");
+            Toast.Success(I18nService.Instance.Translate("已恢复为默认背景图片！"));
         }
         catch (Exception ex)
         {
             _logger.LogError(ex, "恢复默认背景图片失败");
-            Toast.Warning("已恢复为默认背景图片！但清除自定义图片失败，请手动删除文件。");
+            Toast.Warning(I18nService.Instance.Translate("已恢复为默认背景图片！但清除自定义图片失败，请手动删除文件。"));
         }
     }
 

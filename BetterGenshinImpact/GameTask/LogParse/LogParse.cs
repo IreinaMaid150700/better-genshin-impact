@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Text.Json;
 using System.Text.RegularExpressions;
+using BetterGenshinImpact.Service.I18n;
 using BetterGenshinImpact.Core.Config;
 using BetterGenshinImpact.GameTask.FarmingPlan;
 using Newtonsoft.Json;
@@ -941,7 +942,7 @@ namespace BetterGenshinImpact.GameTask.LogParse
                 }
                 catch (NullReferenceException)
                 {
-                    Toast.Warning("读取日志分析配置文件失败！");
+                    Toast.Warning(I18nService.Instance.Translate("读取日志分析配置文件失败！"));
                     config = new LogParseConfig();
                 }
             }

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using BetterGenshinImpact.Service.I18n;
 using BetterGenshinImpact.Model;
 using CommunityToolkit.Mvvm.ComponentModel;
 using Microsoft.Extensions.Logging;
@@ -191,7 +192,7 @@ public partial class OneDragonFlowViewModel : ViewModel
                 }
                 if (pickTaskCount == 1)
                 {
-                    Toast.Success("一条龙任务添加成功");
+                    Toast.Success(I18nService.Instance.Translate("一条龙任务添加成功"));
                 }
             }
             else
@@ -199,7 +200,7 @@ public partial class OneDragonFlowViewModel : ViewModel
                 TaskList.Add(taskItem);
                 if (pickTaskCount == 1)
                 {
-                    Toast.Success("配置组添加成功");
+                    Toast.Success(I18nService.Instance.Translate("配置组添加成功"));
                 }
             }
         }
@@ -387,7 +388,7 @@ public partial class OneDragonFlowViewModel : ViewModel
     {
         if (SelectedConfig == null || SelectedTask == null)
         {
-            Toast.Warning("请先选择配置组和任务");
+            Toast.Warning(I18nService.Instance.Translate("请先选择配置组和任务"));
             return;
         }
 
@@ -395,7 +396,7 @@ public partial class OneDragonFlowViewModel : ViewModel
         if (itemToDelete != null)
         {
             TaskList.Remove(itemToDelete);
-            Toast.Information("已经删除");
+            Toast.Information(I18nService.Instance.Translate("已经删除"));
         }
     }
 
@@ -441,7 +442,7 @@ public partial class OneDragonFlowViewModel : ViewModel
     private void SaveActionConfig()
     {
         SaveConfig();
-        Toast.Information("排序已保存");
+        Toast.Information(I18nService.Instance.Translate("排序已保存"));
     }
 
     [RelayCommand]
@@ -459,7 +460,7 @@ public partial class OneDragonFlowViewModel : ViewModel
         }
 
         SelectedConfig.AutoBossCompletedRunCount = 0;
-        Toast.Information("首领讨伐累计成功领奖次数已清空");
+        Toast.Information(I18nService.Instance.Translate("首领讨伐累计成功领奖次数已清空"));
     }
 
     public void SetSomeSelectedConfig(OneDragonFlowConfig? selected)
@@ -525,7 +526,7 @@ public partial class OneDragonFlowViewModel : ViewModel
         catch (Exception e)
         {
             _logger.LogDebug(e, "保存配置时失败");
-            Toast.Error("保存配置时失败");
+            Toast.Error(I18nService.Instance.Translate("保存配置时失败"));
         }
     }
     
@@ -614,7 +615,7 @@ public partial class OneDragonFlowViewModel : ViewModel
 
         if (SelectedConfig == null || taskListCopy.Count(t => t.IsEnabled) == 0)
         {
-            Toast.Warning("请先选择任务");
+            Toast.Warning(I18nService.Instance.Translate("请先选择任务"));
             _logger.LogInformation("没有配置,退出执行!");
             return;
         }
@@ -679,7 +680,7 @@ public partial class OneDragonFlowViewModel : ViewModel
                     catch (Exception e)
                     {
                         _logger.LogDebug(e, "执行配置组任务时失败");
-                        Toast.Error("执行配置组任务时失败");
+                        Toast.Error(I18nService.Instance.Translate("执行配置组任务时失败"));
                     }
                 }
                 // 如果任务已经被取消，中断所有任务
@@ -763,7 +764,7 @@ public partial class OneDragonFlowViewModel : ViewModel
         }
 
         SaveConfig();
-        Toast.Success($"已复制任务: {taskItem.Name}");
+        Toast.Success(string.Format(I18nService.Instance.Translate("已复制任务: {0}"), taskItem.Name));
     }
 
     [RelayCommand]
@@ -773,7 +774,7 @@ public partial class OneDragonFlowViewModel : ViewModel
 
         TaskList.Remove(taskItem);
         SaveConfig();
-        Toast.Success($"已删除任务: {taskItem.Name}");
+        Toast.Success(string.Format(I18nService.Instance.Translate("已删除任务: {0}"), taskItem.Name));
     }
 
     [RelayCommand]
@@ -782,12 +783,12 @@ public partial class OneDragonFlowViewModel : ViewModel
         if (taskItem == null) return;
         if (SelectedConfig == null)
         {
-            Toast.Warning("请先选择一条龙配置单");
+            Toast.Warning(I18nService.Instance.Translate("请先选择一条龙配置单"));
             return;
         }
         if (!taskItem.IsEnabled)
         {
-            Toast.Warning($"当前任务 <{taskItem.Name}> 已禁用，请先启用后再从此开始执行");
+            Toast.Warning(string.Format(I18nService.Instance.Translate("当前任务 <{0}> 已禁用，请先启用后再从此开始执行"), taskItem.Name));
             return;
         }
 
@@ -796,7 +797,7 @@ public partial class OneDragonFlowViewModel : ViewModel
         {
             task.IsNextTask = task.Id == taskItem.Id;
         }
-        Toast.Success($"设置从 <{taskItem.Name}> 开始执行任务列表");
+        Toast.Success(string.Format(I18nService.Instance.Translate("设置从 <{0}> 开始执行任务列表"), taskItem.Name));
         SaveConfig();
     }
 
@@ -813,14 +814,14 @@ public partial class OneDragonFlowViewModel : ViewModel
     {
         if (SelectedConfig == null)
         {
-            Toast.Warning("请先选择一条龙配置单");
+            Toast.Warning(I18nService.Instance.Translate("请先选择一条龙配置单"));
             return;
         }
 
         var currentTask = SelectedTask;
         if (currentTask == null)
         {
-            Toast.Warning("请先选择要从此开始执行的任务");
+            Toast.Warning(I18nService.Instance.Translate("请先选择要从此开始执行的任务"));
             return;
         }
         if (!currentTask.IsEnabled)
@@ -843,7 +844,7 @@ public partial class OneDragonFlowViewModel : ViewModel
     {
         if (SelectedConfig == null)
         {
-            Toast.Warning("请先选择一条龙配置单");
+            Toast.Warning(I18nService.Instance.Translate("请先选择一条龙配置单"));
             return;
         }
 
@@ -852,7 +853,7 @@ public partial class OneDragonFlowViewModel : ViewModel
         {
             task.IsNextTask = false;
         }
-        Toast.Success("清除从此执行标记完成");
+        Toast.Success(I18nService.Instance.Translate("清除从此执行标记完成"));
         SaveConfig();
     }
 
@@ -866,7 +867,7 @@ public partial class OneDragonFlowViewModel : ViewModel
             // 检查是否已存在
             if (ConfigList.Any(x => x.Name == str))
             {
-                Toast.Warning($"一条龙配置 {str} 已经存在，请勿重复添加");
+                Toast.Warning(string.Format(I18nService.Instance.Translate("一条龙配置 {0} 已经存在，请勿重复添加"), str));
             }
             else
             {
@@ -884,7 +885,7 @@ public partial class OneDragonFlowViewModel : ViewModel
     {
         if (SelectedConfig == null)
         {
-            Toast.Warning("请先选择要删除的配置");
+            Toast.Warning(I18nService.Instance.Translate("请先选择要删除的配置"));
             return;
         }
 
@@ -941,12 +942,12 @@ public partial class OneDragonFlowViewModel : ViewModel
             // 保存配置
             SaveConfig();
 
-            Toast.Success("配置删除成功");
+            Toast.Success(I18nService.Instance.Translate("配置删除成功"));
         }
         catch (Exception e)
         {
             _logger.LogError(e, "删除配置时失败");
-            Toast.Error("删除配置时失败");
+            Toast.Error(I18nService.Instance.Translate("删除配置时失败"));
         }
     }
 
@@ -955,7 +956,7 @@ public partial class OneDragonFlowViewModel : ViewModel
     {
         if (SelectedConfig == null)
         {
-            Toast.Warning("请先选择要重命名的配置");
+            Toast.Warning(I18nService.Instance.Translate("请先选择要重命名的配置"));
             return;
         }
 
@@ -997,12 +998,12 @@ public partial class OneDragonFlowViewModel : ViewModel
             // 更新全局配置名称
             TaskContext.Instance().Config.SelectedOneDragonFlowConfigName = newName;
 
-            Toast.Success("配置重命名成功");
+            Toast.Success(I18nService.Instance.Translate("配置重命名成功"));
         }
         catch (Exception e)
         {
             _logger.LogError(e, "重命名配置时失败");
-            Toast.Error("重命名配置时失败");
+            Toast.Error(I18nService.Instance.Translate("重命名配置时失败"));
         }
     }
 }

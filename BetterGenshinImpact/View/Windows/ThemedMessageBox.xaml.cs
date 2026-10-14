@@ -1,6 +1,7 @@
 using System;
 using System.Threading.Tasks;
 using System.Windows;
+using BetterGenshinImpact.Service.I18n;
 using BetterGenshinImpact.Helpers.Ui;
 using Wpf.Ui.Controls;
 using MessageBoxButton = System.Windows.MessageBoxButton;
@@ -236,30 +237,30 @@ public partial class ThemedMessageBox : FluentWindow
         switch (button)
         {
             case MessageBoxButton.OK:
-                messageBox.PrimaryButton.Content = "确定";
+                messageBox.PrimaryButton.Content = I18nService.Instance.Translate("确定");
                 messageBox.PrimaryButton.Visibility = Visibility.Visible;
                 break;
 
             case MessageBoxButton.OKCancel:
-                messageBox.PrimaryButton.Content = "确定";
+                messageBox.PrimaryButton.Content = I18nService.Instance.Translate("确定");
                 messageBox.PrimaryButton.Visibility = Visibility.Visible;
-                messageBox.SecondaryButton.Content = "取消";
+                messageBox.SecondaryButton.Content = I18nService.Instance.Translate("取消");
                 messageBox.SecondaryButton.Visibility = Visibility.Visible;
                 break;
 
             case MessageBoxButton.YesNo:
-                messageBox.PrimaryButton.Content = "是";
+                messageBox.PrimaryButton.Content = I18nService.Instance.Translate("是");
                 messageBox.PrimaryButton.Visibility = Visibility.Visible;
-                messageBox.SecondaryButton.Content = "否";
+                messageBox.SecondaryButton.Content = I18nService.Instance.Translate("否");
                 messageBox.SecondaryButton.Visibility = Visibility.Visible;
                 break;
 
             case MessageBoxButton.YesNoCancel:
-                messageBox.PrimaryButton.Content = "是";
+                messageBox.PrimaryButton.Content = I18nService.Instance.Translate("是");
                 messageBox.PrimaryButton.Visibility = Visibility.Visible;
-                messageBox.SecondaryButton.Content = "否";
+                messageBox.SecondaryButton.Content = I18nService.Instance.Translate("否");
                 messageBox.SecondaryButton.Visibility = Visibility.Visible;
-                messageBox.CloseButton.Content = "取消";
+                messageBox.CloseButton.Content = I18nService.Instance.Translate("取消");
                 messageBox.CloseButton.Visibility = Visibility.Visible;
                 break;
         }

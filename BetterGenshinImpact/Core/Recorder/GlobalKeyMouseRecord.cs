@@ -3,6 +3,7 @@ using BetterGenshinImpact.GameTask;
 using BetterGenshinImpact.GameTask.Common;
 using BetterGenshinImpact.GameTask.Common.Element.Assets;
 using BetterGenshinImpact.Model;
+using BetterGenshinImpact.Service.I18n;
 using BetterGenshinImpact.View.Windows;
 using Gma.System.MouseKeyHook;
 using Microsoft.Extensions.Logging;
@@ -42,13 +43,13 @@ public class GlobalKeyMouseRecord : Singleton<GlobalKeyMouseRecord>
     {
         if (!TaskContext.Instance().IsInitialized)
         {
-            Toast.Warning("请先在启动页，启动截图器再使用本功能");
+            Toast.Warning(I18nService.Instance.Translate("请先在启动页，启动截图器再使用本功能"));
             return false;
         }
 
         if (Status != KeyMouseRecorderStatus.Stop)
         {
-            Toast.Warning("已经在录制状态，请不要重复启动录制功能");
+            Toast.Warning(I18nService.Instance.Translate("已经在录制状态，请不要重复启动录制功能"));
             return false;
         }
 
@@ -105,8 +106,8 @@ public class GlobalKeyMouseRecord : Singleton<GlobalKeyMouseRecord>
             Status = KeyMouseRecorderStatus.Stop;
             _logger.LogError(ex, "启动键鼠录制失败，相对鼠标捕获方式：{InputType}", inputType);
             await ThemedMessageBox.ErrorAsync(
-                $"启动键鼠录制失败：{ex.Message}",
-                "键鼠录制启动失败");
+                string.Format(I18nService.Instance.Translate("启动键鼠录制失败：{0}"), ex.Message),
+                I18nService.Instance.Translate("键鼠录制启动失败"));
             return false;
         }
     }

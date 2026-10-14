@@ -1,3 +1,4 @@
+using BetterGenshinImpact.Service.I18n;
 using BetterGenshinImpact.Core.Config;
 using BetterGenshinImpact.Core.Input.Backends.Win32;
 using BetterGenshinImpact.Core.Mask;
@@ -39,7 +40,7 @@ public sealed class Win32RuntimeProvider(
             {
                 if (string.IsNullOrEmpty(startConfig.InstallPath))
                 {
-                    await ThemedMessageBox.ErrorAsync("没有找到原神的安装路径");
+                    await ThemedMessageBox.ErrorAsync(I18nService.Instance.Translate("没有找到原神的安装路径"));
                     return null;
                 }
 
@@ -53,7 +54,7 @@ public sealed class Win32RuntimeProvider(
 
             if (hWnd == IntPtr.Zero)
             {
-                await ThemedMessageBox.ErrorAsync("未找到原神窗口，请先启动原神！");
+                await ThemedMessageBox.ErrorAsync(I18nService.Instance.Translate("未找到原神窗口，请先启动原神！"));
                 return null;
             }
         }
