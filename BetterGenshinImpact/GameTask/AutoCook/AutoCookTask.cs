@@ -10,7 +10,7 @@ using BetterGenshinImpact.GameTask.Common.BgiVision;
 using Vanara.PInvoke;
 using static BetterGenshinImpact.GameTask.Common.TaskControl;
 
-namespace BetterGenshinImpact.GameTask.AutoCook;
+namespace BetterGenshinImpact.GameTask.AutoCook;        
 
 public class AutoCookTask : ISoloTask
 {
@@ -23,7 +23,7 @@ public class AutoCookTask : ISoloTask
     private static readonly Rect CookColorRect1080P = new(600, 660, 730, 190);
     private static readonly Scalar TargetCookColor = new(255, 192, 64);
 
-    public string Name => "自动烹饪";
+    public string Name =>   "自动烹饪";
 
     public async Task Start(CancellationToken ct)
     {

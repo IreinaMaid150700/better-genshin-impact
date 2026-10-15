@@ -1,12 +1,13 @@
 using System.ComponentModel;
+using BetterGenshinImpact.Service.I18n;
 
 namespace BetterGenshinImpact.GameTask.AutoArtifactSalvage
 {
     public enum RecognitionFailurePolicy
     {
-        [Description("跳过")]
+        [I18nDescription("跳过")]
         Skip,
-        [Description("终止")]
+        [I18nDescription("终止")]
         Abort
     }
 }

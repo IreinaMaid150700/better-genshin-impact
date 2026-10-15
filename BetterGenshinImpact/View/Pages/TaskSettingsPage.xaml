@@ -95,7 +95,7 @@
                                              DisableCommand="{Binding StopSoloTaskCommand}"
                                              DisableContent="{i18n:T 停止}"
                                              EnableCommand="{Binding SwitchAutoGeniusInvokationCommand}"
-                                             EnableContent="{Binding SwitchAutoGeniusInvokationButtonText}"
+                                             EnableContent="{i18n:TBinding SwitchAutoGeniusInvokationButtonText}"
                                              IsChecked="{Binding SwitchAutoGeniusInvokationEnabled}" />
                 </Grid>
             </ui:CardExpander.Header>
@@ -209,7 +209,7 @@
                                              DisableCommand="{Binding StopSoloTaskCommand}"
                                              DisableContent="{i18n:T 停止}"
                                              EnableCommand="{Binding SwitchAutoWoodCommand}"
-                                             EnableContent="{Binding SwitchAutoWoodButtonText}"
+                                             EnableContent="{i18n:TBinding SwitchAutoWoodButtonText}"
                                              IsChecked="{Binding SwitchAutoWoodEnabled}" />
                 </Grid>
             </ui:CardExpander.Header>
@@ -407,7 +407,7 @@
                                              DisableCommand="{Binding StopSoloTaskCommand}"
                                              DisableContent="{i18n:T 停止}"
                                              EnableCommand="{Binding SwitchAutoFightCommand}"
-                                             EnableContent="{Binding SwitchAutoFightButtonText}"
+                                             EnableContent="{i18n:TBinding SwitchAutoFightButtonText}"
                                              IsChecked="{Binding SwitchAutoFightEnabled}" />
                 </Grid>
             </ui:CardExpander.Header>
@@ -1373,7 +1373,7 @@
                                              DisableCommand="{Binding StopSoloTaskCommand}"
                                              DisableContent="{i18n:T 停止}"
                                              EnableCommand="{Binding SwitchAutoDomainCommand}"
-                                             EnableContent="{Binding SwitchAutoDomainButtonText}"
+                                             EnableContent="{i18n:TBinding SwitchAutoDomainButtonText}"
                                              IsChecked="{Binding SwitchAutoDomainEnabled}" />
                 </Grid>
             </ui:CardExpander.Header>
@@ -1861,7 +1861,7 @@
                                              DisableCommand="{Binding StopSoloTaskCommand}"
                                              DisableContent="{i18n:T 停止}"
                                              EnableCommand="{Binding SwitchAutoBossCommand}"
-                                             EnableContent="{Binding SwitchAutoBossButtonText}"
+                                             EnableContent="{i18n:TBinding SwitchAutoBossButtonText}"
                                              IsChecked="{Binding SwitchAutoBossEnabled}" />
                 </Grid>
             </ui:CardExpander.Header>
@@ -2181,7 +2181,7 @@
                                              DisableCommand="{Binding StopSoloTaskCommand}"
                                              DisableContent="{i18n:T 停止}"
                                              EnableCommand="{Binding SwitchAutoStygianOnslaughtCommand}"
-                                             EnableContent="{Binding SwitchAutoStygianOnslaughtButtonText}"
+                                             EnableContent="{i18n:TBinding SwitchAutoStygianOnslaughtButtonText}"
                                              IsChecked="{Binding SwitchAutoStygianOnslaughtEnabled}" />
                 </Grid>
             </ui:CardExpander.Header>
@@ -2573,7 +2573,7 @@
                                              DisableCommand="{Binding StopSoloTaskCommand}"
                                              DisableContent="{i18n:T 停止}"
                                              EnableCommand="{Binding SwitchAutoFishingCommand}"
-                                             EnableContent="{Binding SwitchAutoFishingButtonText}"
+                                             EnableContent="{i18n:TBinding SwitchAutoFishingButtonText}"
                                              IsChecked="{Binding SwitchAutoFishingEnabled}" />
                 </Grid>
             </ui:CardExpander.Header>
@@ -2690,8 +2690,13 @@
                               Margin="0,0,36,0"
                               ItemsSource="{Binding FishingTimePolicyDict}"
                               SelectedValuePath="Key"
-                              DisplayMemberPath="Value"
-                              SelectedItem="{Binding Config.AutoFishingConfig.FishingTimePolicy, Converter={StaticResource EnumToKVPConverter}, Mode=TwoWay}" />
+                              SelectedItem="{Binding Config.AutoFishingConfig.FishingTimePolicy, Converter={StaticResource EnumToKVPConverter}, Mode=TwoWay}">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{i18n:TBinding Value}" />
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
                 </Grid>
                 <Grid Margin="16">
                     <Grid.RowDefinitions>
@@ -2759,7 +2764,7 @@
                                              DisableCommand="{Binding StopSoloTaskCommand}"
                                              DisableContent="{i18n:T 停止}"
                                              EnableCommand="{Binding SwitchAutoLeyLineOutcropCommand}"
-                                             EnableContent="{Binding SwitchAutoLeyLineOutcropButtonText}"
+                                             EnableContent="{i18n:TBinding SwitchAutoLeyLineOutcropButtonText}"
                                              IsChecked="{Binding SwitchAutoLeyLineOutcropEnabled}" />
                 </Grid>
             </ui:CardExpander.Header>
@@ -3364,7 +3369,7 @@
                                              DisableCommand="{Binding StopSoloTaskCommand}"
                                              DisableContent="{i18n:T 停止}"
                                              EnableCommand="{Binding SwitchAutoMusicGameCommand}"
-                                             EnableContent="{Binding SwitchAutoMusicGameButtonText}"
+                                             EnableContent="{i18n:TBinding SwitchAutoMusicGameButtonText}"
                                              IsChecked="{Binding SwitchAutoMusicGameEnabled}" />
                 </Grid>
                 <Grid Margin="16">
@@ -3398,7 +3403,7 @@
                                              DisableCommand="{Binding StopSoloTaskCommand}"
                                              DisableContent="{i18n:T 停止}"
                                              EnableCommand="{Binding SwitchAutoAlbumCommand}"
-                                             EnableContent="{Binding SwitchAutoAlbumButtonText}"
+                                             EnableContent="{i18n:TBinding SwitchAutoAlbumButtonText}"
                                              IsChecked="{Binding SwitchAutoAlbumEnabled}" />
                 </Grid>
                 <Grid Margin="16">
@@ -3452,7 +3457,13 @@
                               Margin="0,0,36,0"
                               ItemsSource="{Binding AutoMusicLevelList}"
                               SelectedItem="{Binding Config.AutoMusicGameConfig.MusicLevel, Mode=TwoWay}"
-                              SelectedIndex="0" />
+                              SelectedIndex="0">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{i18n:TBinding .}" />
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
                 </Grid>
                 <Grid Margin="16">
                     <Grid.RowDefinitions>
@@ -3513,7 +3524,7 @@
                                              DisableCommand="{Binding StopSoloTaskCommand}"
                                              DisableContent="{i18n:T 停止}"
                                              EnableCommand="{Binding SwitchAutoCookCommand}"
-                                             EnableContent="{Binding SwitchAutoCookButtonText}"
+                                             EnableContent="{i18n:TBinding SwitchAutoCookButtonText}"
                                              IsChecked="{Binding SwitchAutoCookEnabled}" />
                 </Grid>
             </ui:CardExpander.Header>
@@ -3599,14 +3610,12 @@
                     <ui:TextBlock Grid.Row="1"
                                   Grid.Column="0"
                                   Foreground="{ui:ThemeResource TextFillColorTertiaryBrush}"
-                                  TextWrapping="Wrap">
-                        启动本任务后识别队伍，构建连招行为树
-                    </ui:TextBlock>
+                                  TextWrapping="Wrap" Text="{i18n:T 启动本任务后识别队伍，构建连招行为树}" />
                     <ui:Button Grid.Row="0"
                                Grid.RowSpan="2"
                                Grid.Column="1"
                                Margin="0,0,12,0"
-                               Content="{Binding SwitchAutoComboRunButtonText}"
+                               Content="{i18n:TBinding SwitchAutoComboRunButtonText}"
                                Command="{Binding SwitchAutoComboRunCommand}"
                                Icon="{ui:SymbolIcon Play24}" />
                     <controls:TwoStateButton Grid.Row="0"
@@ -3616,7 +3625,7 @@
                                              DisableCommand="{Binding StopSoloTaskCommand}"
                                              DisableContent="{i18n:T 停止}"
                                              EnableCommand="{Binding SwitchAutoComboCommand}"
-                                             EnableContent="{Binding SwitchAutoComboButtonText}"
+                                             EnableContent="{i18n:TBinding SwitchAutoComboButtonText}"
                                              IsChecked="{Binding SwitchAutoComboEnabled}" />
                 </Grid>
             </ui:CardExpander.Header>
@@ -3669,9 +3678,7 @@
                     <ui:TextBlock Grid.Row="0"
                                   Grid.Column="0"
                                   FontTypography="Body"
-                                  TextWrapping="Wrap">
-                        决策LLM服务地址
-                    </ui:TextBlock>
+                                  TextWrapping="Wrap" Text="{i18n:T 决策LLM服务地址}" />
                     <ui:TextBlock Grid.Row="2"
                                   Grid.Column="0"
                                   Foreground="{ui:ThemeResource TextFillColorTertiaryBrush}"
@@ -3698,9 +3705,7 @@
                     <ui:TextBlock Grid.Row="0"
                                   Grid.Column="0"
                                   FontTypography="Body"
-                                  TextWrapping="Wrap">
-                        LLM模型名
-                    </ui:TextBlock>
+                                  TextWrapping="Wrap" Text="{i18n:T LLM模型名}" />
                     <!-- 下拉与按钮放在同一个固定宽度的容器里：容器与其余各行的值控件对齐，
                          内部用 * 吸收按钮宽度的变化，避免按钮文字长度反过来把下拉挤扁。 -->
                     <Grid Grid.Row="0"
@@ -3739,9 +3744,7 @@
                     <ui:TextBlock Grid.Row="0"
                                   Grid.Column="0"
                                   FontTypography="Body"
-                                  TextWrapping="Wrap">
-                        LLM服务密钥
-                    </ui:TextBlock>
+                                  TextWrapping="Wrap" Text="{i18n:T LLM服务密钥}" />
                     <ui:TextBlock Grid.Row="1"
                                   Grid.Column="0"
                                   Foreground="{ui:ThemeResource TextFillColorTertiaryBrush}"
@@ -3767,9 +3770,7 @@
                     <ui:TextBlock Grid.Row="0"
                                   Grid.Column="0"
                                   FontTypography="Body"
-                                  TextWrapping="Wrap">
-                        额外提示词
-                    </ui:TextBlock>
+                                  TextWrapping="Wrap" Text="{i18n:T 额外提示词}" />
                     <ui:TextBlock Grid.Row="1"
                                   Grid.Column="0"
                                   Foreground="{ui:ThemeResource TextFillColorTertiaryBrush}"
@@ -3800,9 +3801,7 @@
                     <ui:TextBlock Grid.Row="0"
                                   Grid.Column="0"
                                   FontTypography="Body"
-                                  TextWrapping="Wrap">
-                        主建树提示词
-                    </ui:TextBlock>
+                                  TextWrapping="Wrap" Text="{i18n:T 主建树提示词}" />
                     <ui:TextBlock Grid.Row="1"
                                   Grid.Column="0"
                                   Foreground="{ui:ThemeResource TextFillColorTertiaryBrush}"
@@ -3833,9 +3832,7 @@
                     <ui:TextBlock Grid.Row="0"
                                   Grid.Column="0"
                                   FontTypography="Body"
-                                  TextWrapping="Wrap">
-                        兜底建树提示词
-                    </ui:TextBlock>
+                                  TextWrapping="Wrap" Text="{i18n:T 兜底建树提示词}" />
                     <ui:TextBlock Grid.Row="1"
                                   Grid.Column="0"
                                   Foreground="{ui:ThemeResource TextFillColorTertiaryBrush}"
@@ -3861,9 +3858,7 @@
                     </Grid.ColumnDefinitions>
                     <StackPanel Grid.Column="0">
                         <ui:TextBlock FontTypography="Body"
-                                      TextWrapping="Wrap">
-                            角色提示词覆盖
-                        </ui:TextBlock>
+                                      TextWrapping="Wrap" Text="{i18n:T 角色提示词覆盖}" />
                         <ui:TextBlock Margin="0,4,0,0"
                                       Foreground="{ui:ThemeResource TextFillColorTertiaryBrush}"
                                       Text="{i18n:T 自定义角色的战术描述，未覆盖的角色使用内置描述；删除行即恢复内置描述；如重复只取第一个}"
@@ -3947,7 +3942,7 @@
                                              DisableCommand="{Binding StopSoloTaskCommand}"
                                              DisableContent="{i18n:T 停止}"
                                              EnableCommand="{Binding SwitchArtifactSalvageCommand}"
-                                             EnableContent="{Binding SwitchAutoFishingButtonText}"
+                                             EnableContent="{i18n:TBinding SwitchAutoFishingButtonText}"
                                              IsChecked="{Binding SwitchArtifactSalvageEnabled}" />
                 </Grid>
             </ui:CardExpander.Header>
@@ -4129,8 +4124,13 @@
                               Margin="0,0,36,0"
                               ItemsSource="{Binding RecognitionFailurePolicyDict}"
                               SelectedValuePath="Key"
-                              DisplayMemberPath="Value"
-                              SelectedItem="{Binding Config.AutoArtifactSalvageConfig.RecognitionFailurePolicy, Converter={StaticResource EnumToKVPConverter}, Mode=TwoWay}" />
+                              SelectedItem="{Binding Config.AutoArtifactSalvageConfig.RecognitionFailurePolicy, Converter={StaticResource EnumToKVPConverter}, Mode=TwoWay}">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{i18n:TBinding Value}" />
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
                 </Grid>
             </StackPanel>
         </ui:CardExpander>
@@ -4163,7 +4163,7 @@
                                              DisableCommand="{Binding StopSoloTaskCommand}"
                                              DisableContent="{i18n:T 停止}"
                                              EnableCommand="{Binding SwitchAutoRedeemCodeCommand}"
-                                             EnableContent="{Binding SwitchAutoRedeemCodeButtonText}"
+                                             EnableContent="{i18n:TBinding SwitchAutoRedeemCodeButtonText}"
                                              IsChecked="{Binding SwitchAutoRedeemCodeEnabled}" />
                 </Grid>
             </ui:CardExpander.Header>
@@ -4241,7 +4241,7 @@
                                              DisableCommand="{Binding StopSoloTaskCommand}"
                                              DisableContent="{i18n:T 停止}"
                                              EnableCommand="{Binding SwitchGetGridIconsCommand}"
-                                             EnableContent="{Binding SwitchGetGridIconsButtonText}"
+                                             EnableContent="{i18n:TBinding SwitchGetGridIconsButtonText}"
                                              IsChecked="{Binding SwitchGetGridIconsEnabled}" VerticalAlignment="Top" />
                 </Grid>
             </ui:CardExpander.Header>
@@ -4272,8 +4272,12 @@
                               Margin="0,0,36,0"
                               ItemsSource="{Binding GridNameDict}"
                               SelectedValuePath="Key"
-                              DisplayMemberPath="Value"
                               SelectedItem="{Binding Config.GetGridIconsConfig.GridName, Converter={StaticResource EnumToKVPConverter}, Mode=TwoWay}">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{i18n:TBinding Value}" />
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
                     </ComboBox>
                 </Grid>
                 <Grid Margin="16">
@@ -4380,7 +4384,7 @@
                                              DisableCommand="{Binding StopSoloTaskCommand}"
                                              DisableContent="{i18n:T 停止}"
                                              EnableCommand="{Binding SwitchGridIconsModelAccuracyTestCommand}"
-                                             EnableContent="{Binding SwitchGridIconsAccuracyTestButtonText}"
+                                             EnableContent="{i18n:TBinding SwitchGridIconsAccuracyTestButtonText}"
                                              IsChecked="{Binding SwitchGetGridIconsEnabled}" />
                 </Grid>
                 <Grid Margin="16">
@@ -4415,8 +4419,13 @@
                               Width="120"
                               Margin="0,0,12,0"
                               ItemsSource="{Binding InventoryCountComparisonTargetDict}"
-                              SelectedItem="{Binding InventoryCountComparisonTarget, Converter={StaticResource EnumToKVPConverter}, Mode=TwoWay}"
-                              DisplayMemberPath="Value" />
+                              SelectedItem="{Binding InventoryCountComparisonTarget, Converter={StaticResource EnumToKVPConverter}, Mode=TwoWay}">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{i18n:TBinding Value}" />
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
                     <controls:TwoStateButton Grid.Row="0"
                                              Grid.RowSpan="2"
                                              Grid.Column="2"

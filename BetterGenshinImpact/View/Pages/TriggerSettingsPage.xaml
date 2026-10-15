@@ -498,10 +498,15 @@
                               Grid.RowSpan="2"
                               Grid.Column="1"
                               Margin="0,0,12,0"
-                              DisplayMemberPath="Value"
                               ItemsSource="{Binding PictureInPictureSourceTypeDict}"
                               SelectedValue="{Binding Config.AutoSkipConfig.PictureInPictureSourceType, Mode=TwoWay}"
-                              SelectedValuePath="Key" />
+                              SelectedValuePath="Key">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{i18n:TBinding Value}" />
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
                     <ui:ToggleSwitch Grid.Row="0"
                                      Grid.RowSpan="2"
                                      Grid.Column="2"
@@ -649,7 +654,13 @@
                               Grid.Column="1"
                               Margin="0,0,8,0"
                               ItemsSource="{Binding ClickChatOptionNames}"
-                              SelectedItem="{Binding Config.AutoSkipConfig.ClickChatOption, Mode=TwoWay}" />
+                              SelectedItem="{Binding Config.AutoSkipConfig.ClickChatOption, Mode=TwoWay}">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{i18n:TBinding .}" />
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
                 </Grid>
                 <Grid Margin="16">
                     <Grid.RowDefinitions>
@@ -1079,6 +1090,11 @@
                               ScrollViewer.VerticalScrollBarVisibility="Auto"
                               ItemsSource="{Binding HangoutBranches, Mode=OneWay}"
                               SelectedItem="{Binding Config.AutoSkipConfig.AutoHangoutEndChoose, Mode=TwoWay}">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{i18n:TBinding .}" />
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
                         <b:Interaction.Behaviors>
                             <behavior:ComboBoxPopupScrollBehavior />
                         </b:Interaction.Behaviors>
