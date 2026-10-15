@@ -14,11 +14,13 @@ using BetterGenshinImpact.GameTask.Model.Area;
 using BetterGenshinImpact.Helpers;
 using BetterGenshinImpact.Service;
 using BetterGenshinImpact.View.Windows;
+using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Logging;
 using OpenCvSharp;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Globalization;
 using System.Linq;
 using System.Text.Json;
 using System.Text.RegularExpressions;
@@ -91,7 +93,35 @@ public partial class AutoSkipTrigger : ITaskTrigger
     /// 优先自动点击的选项
     /// </summary>
     private List<string> _selectList = [];
-    
+
+    /// <summary>
+    /// 领取每日委托奖励选项的本地化资源键，键本身即为中文下的匹配正则
+    /// </summary>
+    internal const string DailyCommissionOptionKey = "每日|委托";
+
+    /// <summary>
+    /// 探索派遣选项的本地化资源键，键本身即为中文下的匹配正则
+    /// </summary>
+    internal const string ExpeditionOptionKey = "探索|派遣";
+
+    /// <summary>
+    /// 按游戏语言匹配需要特殊处理的橙色选项，启用时按当前游戏语言重建
+    /// </summary>
+    private OcrTextMatcher _dailyCommissionOptionMatcher = new(DailyCommissionOptionKey);
+
+    private OcrTextMatcher _expeditionOptionMatcher = new(ExpeditionOptionKey);
+
+    /// <summary>
+    /// 默认不自动点击的选项（没有橙色选项时暂停）的本地化资源键，键本身即为中文下的匹配正则。
+    /// default_pause_options.json 只包含中文关键词，其他游戏语言依靠此处的本地化模式
+    /// </summary>
+    internal const string DefaultPauseOptionKey = "每日委托|探索派遣";
+
+    /// <summary>
+    /// 与关键词列表一致，仅在使用全局配置时创建
+    /// </summary>
+    private OcrTextMatcher? _defaultPauseOptionMatcher;
+
     private static RecognitionObject GetRecognitionObject(string objectName, ImageRegion region)
     {
         return RecognitionAssets.Get("AutoSkip", objectName, region.Width, region.Height);
@@ -135,10 +165,13 @@ public partial class AutoSkipTrigger : ITaskTrigger
         _pendingBringToFront = false;
         ResetPageCloseRecognition();
 
+        var useKeywords = customConfig == null && !_isDefaultCustomConfiguration;
+        InitOptionMatchers(useKeywords);
+
         _defaultPauseList = [];
         _pauseList = [];
         _selectList = [];
-        if (customConfig == null && !_isDefaultCustomConfiguration)
+        if (useKeywords)
         {
             InitKeyword();
         }
@@ -148,6 +181,26 @@ public partial class AutoSkipTrigger : ITaskTrigger
     {
         ReleaseChooseOptionWait("触发器关闭");
         ResetPageCloseRecognition();
+    }
+
+    /// <summary>
+    /// 按当前游戏语言创建特殊选项匹配器。新增游戏语言只需添加对应的 AutoSkipTrigger.{语言}.resx
+    /// </summary>
+    /// <param name="useKeywords">是否启用关键词，未启用时不创建默认暂停选项匹配器</param>
+    private void InitOptionMatchers(bool useKeywords)
+    {
+        IStringLocalizer<AutoSkipTrigger> stringLocalizer = App.GetService<IStringLocalizer<AutoSkipTrigger>>() ?? throw new NullReferenceException();
+        CultureInfo gameCulture = new CultureInfo(TaskContext.Instance().Config.OtherConfig.GameCultureInfoName);
+        _dailyCommissionOptionMatcher = CreateOptionMatcher(stringLocalizer, gameCulture, DailyCommissionOptionKey);
+        _expeditionOptionMatcher = CreateOptionMatcher(stringLocalizer, gameCulture, ExpeditionOptionKey);
+        _defaultPauseOptionMatcher = useKeywords
+            ? CreateOptionMatcher(stringLocalizer, gameCulture, DefaultPauseOptionKey)
+            : null;
+    }
+
+    internal static OcrTextMatcher CreateOptionMatcher(IStringLocalizer stringLocalizer, CultureInfo gameCulture, string optionKey)
+    {
+        return new OcrTextMatcher(stringLocalizer.WithCultureGet(gameCulture, optionKey));
     }
 
     private void InitKeyword()
@@ -778,7 +831,9 @@ public partial class AutoSkipTrigger : ITaskTrigger
                         var textMat = item.ToImageRegion().SrcMat;
                         if (IsOrangeOption(textMat))
                         {
-                            if (_config.AutoGetDailyRewardsEnabled && (item.Text.Contains("每日") || item.Text.Contains("委托")))
+                            var isDailyCommissionOption = _dailyCommissionOptionMatcher.IsMatch(item.Text);
+                            var isExpeditionOption = _expeditionOptionMatcher.IsMatch(item.Text);
+                            if (_config.AutoGetDailyRewardsEnabled && isDailyCommissionOption)
                             {
                                 if (!ClickOcrRegion(item, "每日委托"))
                                 {
@@ -797,7 +852,7 @@ public partial class AutoSkipTrigger : ITaskTrigger
                                 
                                 _prevGetDailyRewardsTime = DateTime.Now; // 记录领取时间
                             }
-                            else if (_config.AutoReExploreEnabled && (item.Text.Contains("探索") || item.Text.Contains("派遣")))
+                            else if (_config.AutoReExploreEnabled && isExpeditionOption)
                             {
                                 if (!ClickOcrRegion(item, "探索派遣"))
                                 {
@@ -807,10 +862,7 @@ public partial class AutoSkipTrigger : ITaskTrigger
                                 Thread.Sleep(800); // 等待探索派遣界面打开
                                 new OneKeyExpeditionTask().Run();
                             }
-                            else if (!item.Text.Contains("每日")
-                                && !item.Text.Contains("委托")
-                                && !item.Text.Contains("探索")
-                                && !item.Text.Contains("派遣"))
+                            else if (!isDailyCommissionOption && !isExpeditionOption)
                             {
                                 if (!ClickOcrRegion(item))
                                 {
@@ -826,7 +878,8 @@ public partial class AutoSkipTrigger : ITaskTrigger
                     foreach (var item in rs)
                     {
                         // 不选择关键词
-                        if (_defaultPauseList.Any(s => item.Text.Contains(s)))
+                        if (_defaultPauseList.Any(s => item.Text.Contains(s))
+                            || _defaultPauseOptionMatcher?.IsMatch(item.Text) == true)
                         {
                             return true;
                         }
@@ -905,7 +958,8 @@ public partial class AutoSkipTrigger : ITaskTrigger
             region.Click();
         }
 
-        AutoSkipLog(region.Text);
+        // 每日委托、探索派遣等特殊选项始终记录日志
+        AutoSkipLog(region.Text, alwaysLog: !string.IsNullOrEmpty(optionType));
         return true;
     }
 
@@ -1062,9 +1116,9 @@ public partial class AutoSkipTrigger : ITaskTrigger
         _prevClickTime = DateTime.Now;
     }
 
-    private void AutoSkipLog(string text)
+    private void AutoSkipLog(string text, bool alwaysLog = false)
     {
-        if (text.Contains("每日委托") || text.Contains("探索派遣"))
+        if (alwaysLog)
         {
             _logger.LogInformation("自动剧情：{Text}", text);
         }
