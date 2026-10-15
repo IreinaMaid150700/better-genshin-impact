@@ -5,6 +5,7 @@ using BetterGenshinImpact.ViewModel.Windows;
 using Microsoft.Extensions.Logging;
 using Microsoft.Win32;
 using OpenCvSharp;
+using BetterGenshinImpact.Service.I18n;
 using System;
 using System.IO;
 using System.Threading;
@@ -159,7 +160,7 @@ public sealed class RecognitionTemplateEditorService
         {
             var dialog = new OpenFileDialog
             {
-                Title = "选择模板制作参考图片",
+                Title = I18nService.Instance.Translate("选择模板制作参考图片"),
                 Filter = "图片文件|*.png;*.jpg;*.jpeg;*.bmp;*.webp|PNG 图片|*.png|所有文件|*.*",
                 CheckFileExists = true
             };
@@ -224,7 +225,7 @@ public sealed class RecognitionTemplateEditorService
         {
             ThemedMessageBox.Show(
                 $"{failureMessage}{Environment.NewLine}{Environment.NewLine}{detail}{Environment.NewLine}{Environment.NewLine}{guidance}",
-                "模板素材制作",
+                I18nService.Instance.Translate("模板素材制作"),
                 MessageBoxButton.OK,
                 ThemedMessageBox.MessageBoxIcon.Warning,
                 MessageBoxResult.OK,

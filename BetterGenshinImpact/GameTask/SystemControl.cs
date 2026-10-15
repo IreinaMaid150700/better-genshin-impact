@@ -1,3 +1,4 @@
+using BetterGenshinImpact.Service.I18n;
 using BetterGenshinImpact.View.Windows;
 using BetterGenshinImpact.GameTask.Runtime;
 using BetterGenshinImpact.GameTask.Runtime.Win32;
@@ -236,7 +237,7 @@ public class SystemControl
     {
         if (!File.Exists(path))
         {
-            await ThemedMessageBox.ErrorAsync($"原神启动路径 {path} 不存在，请前往 启动——同时启动原神——原神安装路径 重新进行配置！");
+            await ThemedMessageBox.ErrorAsync(string.Format(I18nService.Instance.Translate("原神启动路径 {0} 不存在，请前往 启动——同时启动原神——原神安装路径 重新进行配置！"), path));
             return IntPtr.Zero;
         }
 

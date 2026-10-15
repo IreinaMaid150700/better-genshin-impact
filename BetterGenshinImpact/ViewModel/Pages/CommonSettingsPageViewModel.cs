@@ -108,7 +108,7 @@ public partial class CommonSettingsPageViewModel : ViewModel
     public ObservableCollection<string> MapPathingTypes { get; } = ["SIFT", "TemplateMatch"];
 
     [ObservableProperty] private FrozenDictionary<string, string> _languageDict =
-        new[] { "zh-Hans", "zh-Hant", "en", "ja", "ru", "it"  }
+        new[] { "zh-Hans", "zh-Hant", "en", "ja", "ru", "it", "vi" }
             .ToFrozenDictionary(c => c, c => CultureInfoNameToKVPConverter.GetDisplayName(c));
 
     public string SelectedCountry
@@ -147,7 +147,7 @@ public partial class CommonSettingsPageViewModel : ViewModel
         //            Owner = this,
         WebpageWindow cookieWin = new()
         {
-            Title = "日志分析",
+            Title = I18nService.Instance.Translate("日志分析"),
             Width = 800,
             Height = 600,
 
@@ -354,7 +354,7 @@ public partial class CommonSettingsPageViewModel : ViewModel
 
         var dialog = new OpenFileDialog
         {
-            Title = "选择脚本仓库压缩包",
+            Title = I18nService.Instance.Translate("选择脚本仓库压缩包"),
             Filter = "Zip Files (*.zip)|*.zip",
             Multiselect = false
         };
@@ -364,11 +364,11 @@ public partial class CommonSettingsPageViewModel : ViewModel
             try
             {
                 await ScriptRepoUpdater.Instance.ImportLocalRepoZip(dialog.FileName);
-                ThemedMessageBox.Information("脚本仓库离线包导入成功！");
+                ThemedMessageBox.Information(I18nService.Instance.Translate("脚本仓库离线包导入成功！"));
             }
             catch (Exception ex)
             {
-                ThemedMessageBox.Error($"脚本仓库离线包导入失败：{ex.Message}");
+                ThemedMessageBox.Error(string.Format(I18nService.Instance.Translate("脚本仓库离线包导入失败：{0}"), ex.Message));
             }
         }
     }
@@ -455,7 +455,7 @@ public partial class CommonSettingsPageViewModel : ViewModel
         var dialog = new OpenFileDialog
         {
             Filter = "图片文件|*.png;*.jpg;*.jpeg;*.bmp;*.gif",
-            Title = "选择准星图片"
+            Title = I18nService.Instance.Translate("选择准星图片")
         };
         if (dialog.ShowDialog() == true)
         {
@@ -470,7 +470,7 @@ public partial class CommonSettingsPageViewModel : ViewModel
         {
             // 注意：不声明 *.webp —— WPF BitmapImage 原生不支持 WebP 解码，声明了会导致用户选中后加载失败
             Filter = "图片文件|*.png;*.jpg;*.jpeg;*.bmp;*.gif",
-            Title = "选择主窗口背景图片"
+            Title = I18nService.Instance.Translate("选择主窗口背景图片")
         };
         if (dialog.ShowDialog() == true)
         {

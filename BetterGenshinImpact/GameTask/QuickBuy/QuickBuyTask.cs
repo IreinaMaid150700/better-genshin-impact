@@ -1,3 +1,4 @@
+using BetterGenshinImpact.Service.I18n;
 using BetterGenshinImpact.Core.Input;
 using System;
 using BetterGenshinImpact.Core.Recognition;
@@ -17,7 +18,7 @@ public class QuickBuyTask
     {
         if (!TaskContext.Instance().IsInitialized)
         {
-            Toast.Warning("请先启动");
+            Toast.Warning(I18nService.Instance.Translate("请先启动"));
             return;
         }
         if (!SystemControl.IsGenshinImpactActiveByProcess())

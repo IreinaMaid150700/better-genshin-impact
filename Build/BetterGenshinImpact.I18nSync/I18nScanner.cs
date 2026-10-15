@@ -16,6 +16,12 @@ internal static partial class I18nScanner
     [GeneratedRegex(@"new\s+(?:HotKeySettingModel|StatusItem)\(\s*""(?<key>[^""]+)""", RegexOptions.CultureInvariant)]
     private static partial Regex CodeModelKeyRegex();
 
+    [GeneratedRegex(@"I18nService\.Key\(\s*""(?<key>[^""]+)""\s*\)", RegexOptions.CultureInvariant)]
+    private static partial Regex CodeKeyMarkerRegex();
+
+    [GeneratedRegex(@"I18nDescription\(\s*""(?<key>[^""]+)""\s*\)", RegexOptions.CultureInvariant)]
+    private static partial Regex CodeDescriptionKeyRegex();
+
     public static I18nScanResult Scan(string projectDirectory)
     {
         var keys = new List<string>();
@@ -54,6 +60,25 @@ internal static partial class I18nScanner
             var source = RemoveComments(File.ReadAllText(filePath));
             AddMatches(CodeTranslationKeyRegex().Matches(source), keys, knownKeys, normalizeCSharpEscapes: true);
             AddMatches(CodeModelKeyRegex().Matches(source), keys, knownKeys, normalizeCSharpEscapes: true);
+            AddMatches(CodeKeyMarkerRegex().Matches(source), keys, knownKeys, normalizeCSharpEscapes: true);
+            AddMatches(CodeDescriptionKeyRegex().Matches(source), keys, knownKeys, normalizeCSharpEscapes: true);
+        }
+
+        // 邀约分支名称：hangout.json 顶层键即界面显示文本
+        foreach (var filePath in Directory
+                     .EnumerateFiles(projectDirectory, "hangout.json", SearchOption.AllDirectories)
+                     .Where(path => !IsBuildOutput(projectDirectory, path))
+                     .OrderBy(path => path, StringComparer.OrdinalIgnoreCase))
+        {
+            using var json = System.Text.Json.JsonDocument.Parse(File.ReadAllText(filePath));
+            foreach (var property in json.RootElement.EnumerateObject())
+            {
+                var key = property.Name.Trim();
+                if (key.Length > 0 && knownKeys.Add(key))
+                {
+                    keys.Add(key);
+                }
+            }
         }
 
         return new I18nScanResult(keys, xamlFileCount, codeFileCount);

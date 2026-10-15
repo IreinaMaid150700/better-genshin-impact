@@ -1,3 +1,4 @@
+using BetterGenshinImpact.Service.I18n;
 using BetterGenshinImpact.Core.Config;
 using BetterGenshinImpact.Core.Recorder;
 using BetterGenshinImpact.Core.Script;
@@ -83,7 +84,7 @@ public partial class KeyMouseRecordPageViewModel : ViewModel
     {
         if (!TaskContext.Instance().IsInitialized)
         {
-            Toast.Warning("请先在启动页，启动截图器再使用本功能");
+            Toast.Warning(I18nService.Instance.Translate("请先在启动页，启动截图器再使用本功能"));
             return;
         }
         if (!IsRecording)

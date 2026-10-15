@@ -697,13 +697,13 @@ public partial class NotificationSettingsPageViewModel : ObservableObject, IView
     {
         if (string.IsNullOrWhiteSpace(Config.NotificationConfig.QqAppId))
         {
-            Toast.Error("请先填写 QQ AppID");
+            Toast.Error(I18nService.Instance.Translate("请先填写 QQ AppID"));
             return;
         }
 
         if (string.IsNullOrWhiteSpace(Config.NotificationConfig.QqClientSecret))
         {
-            Toast.Error("请先填写 QQ AppSecret");
+            Toast.Error(I18nService.Instance.Translate("请先填写 QQ AppSecret"));
             return;
         }
 
@@ -729,7 +729,7 @@ public partial class NotificationSettingsPageViewModel : ObservableObject, IView
             // 绑定成功，自动回填 OpenID（配置自动保存 + 刷新通知器）
             Config.NotificationConfig.QqOpenId = openId;
             QqStatus = "绑定成功";
-            Toast.Success("QQ 绑定成功");
+            Toast.Success(I18nService.Instance.Translate("QQ 绑定成功"));
         }
         catch (OperationCanceledException)
         {
@@ -740,7 +740,7 @@ public partial class NotificationSettingsPageViewModel : ObservableObject, IView
         {
             // 超时或其他错误（超时已被 BindAsync 转为 NotifierException）
             QqStatus = $"绑定失败：{ex.Message}";
-            Toast.Error($"绑定失败：{ex.Message}");
+            Toast.Error(string.Format(I18nService.Instance.Translate("绑定失败：{0}"), ex.Message));
         }
         finally
         {
@@ -824,7 +824,7 @@ public partial class NotificationSettingsPageViewModel : ObservableObject, IView
             // 此处不再重复调用，避免第二次刷新销毁刚创建的会话导致 UI 卡死。
 
             WechatClawbotStatus = "绑定成功";
-            Toast.Success("微信 Clawbot 绑定成功");
+            Toast.Success(I18nService.Instance.Translate("微信 Clawbot 绑定成功"));
         }
         catch (OperationCanceledException)
         {
@@ -833,7 +833,7 @@ public partial class NotificationSettingsPageViewModel : ObservableObject, IView
         catch (System.Exception ex)
         {
             WechatClawbotStatus = $"登录/绑定失败：{ex.Message}";
-            Toast.Error($"登录/绑定失败：{ex.Message}");
+            Toast.Error(string.Format(I18nService.Instance.Translate("登录/绑定失败：{0}"), ex.Message));
         }
         finally
         {
@@ -862,13 +862,13 @@ public partial class NotificationSettingsPageViewModel : ObservableObject, IView
     {
         if (string.IsNullOrWhiteSpace(Config.NotificationConfig.QqAppId))
         {
-            Toast.Error("请先填写 QQ AppID");
+            Toast.Error(I18nService.Instance.Translate("请先填写 QQ AppID"));
             return;
         }
 
         if (string.IsNullOrWhiteSpace(Config.NotificationConfig.QqClientSecret))
         {
-            Toast.Error("请先填写 QQ AppSecret");
+            Toast.Error(I18nService.Instance.Translate("请先填写 QQ AppSecret"));
             return;
         }
 
@@ -901,7 +901,7 @@ public partial class NotificationSettingsPageViewModel : ObservableObject, IView
             // 绑定成功，自动回填群 OpenID（配置自动保存 + 刷新通知器）
             Config.NotificationConfig.QqGroupOpenId = groupOpenId;
             QqStatus = "群绑定成功";
-            Toast.Success("QQ 群绑定成功");
+            Toast.Success(I18nService.Instance.Translate("QQ 群绑定成功"));
         }
         catch (OperationCanceledException)
         {
@@ -912,7 +912,7 @@ public partial class NotificationSettingsPageViewModel : ObservableObject, IView
         {
             // 超时或其他错误（超时已被 BindGroupAsync 转为 NotifierException）
             QqStatus = $"群绑定失败：{ex.Message}";
-            Toast.Error($"群绑定失败：{ex.Message}");
+            Toast.Error(string.Format(I18nService.Instance.Translate("群绑定失败：{0}"), ex.Message));
         }
         finally
         {

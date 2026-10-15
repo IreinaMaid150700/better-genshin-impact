@@ -1,3 +1,4 @@
+using BetterGenshinImpact.Service.I18n;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -297,7 +298,7 @@ public sealed class InstanceBootstrap : IDisposable
                     {
                         client.Dispose();
                         throw new InvalidOperationException(
-                            response.ErrorMessage ?? response.ErrorCode ?? "根实例拒绝连接。");
+                            response.ErrorMessage ?? response.ErrorCode ?? I18nService.Instance.Translate("根实例拒绝连接。"));
                     }
 
                     var openResponse =

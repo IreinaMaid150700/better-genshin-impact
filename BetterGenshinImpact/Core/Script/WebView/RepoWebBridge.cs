@@ -10,6 +10,7 @@ using CommunityToolkit.Mvvm.Messaging;
 using Newtonsoft.Json.Linq;
 using System.Net;
 using BetterGenshinImpact.GameTask;
+using BetterGenshinImpact.Service.I18n;
 using BetterGenshinImpact.Service.Interface;
 
 namespace BetterGenshinImpact.Core.Script.WebView;
@@ -48,7 +49,7 @@ public sealed class RepoWebBridge
         }
         catch (Exception ex)
         {
-            await ThemedMessageBox.ErrorAsync(ex.Message, "获取仓库信息失败");
+            await ThemedMessageBox.ErrorAsync(ex.Message, I18nService.Instance.Translate("获取仓库信息失败"));
             return string.Empty;
         }
     }
@@ -62,7 +63,7 @@ public sealed class RepoWebBridge
         }
         catch (Exception e)
         {
-            await ThemedMessageBox.ErrorAsync(e.Message, "订阅脚本链接失败！");
+            await ThemedMessageBox.ErrorAsync(e.Message, I18nService.Instance.Translate("订阅脚本链接失败！"));
         }
     }
 
@@ -75,7 +76,7 @@ public sealed class RepoWebBridge
         
         if (!File.Exists(userConfigPath))
         {
-            await ThemedMessageBox.ErrorAsync($"用户配置文件不存在: {userConfigPath}", "获取用户配置失败");
+            await ThemedMessageBox.ErrorAsync(string.Format(I18nService.Instance.Translate("用户配置文件不存在: {0}"), userConfigPath), I18nService.Instance.Translate("获取用户配置失败"));
             return string.Empty;
         }
 
@@ -191,7 +192,7 @@ public sealed class RepoWebBridge
         }
         catch (Exception ex)
         {
-            await ThemedMessageBox.ErrorAsync(ex.Message, "信息更新失败");
+            await ThemedMessageBox.ErrorAsync(ex.Message, I18nService.Instance.Translate("信息更新失败"));
             return false;
         }
     }
@@ -217,7 +218,7 @@ public sealed class RepoWebBridge
         }
         catch (Exception ex)
         {
-            await ThemedMessageBox.ErrorAsync($"清空更新标记失败: {ex.Message}", "操作失败");
+            await ThemedMessageBox.ErrorAsync(string.Format(I18nService.Instance.Translate("清空更新标记失败: {0}"), ex.Message), I18nService.Instance.Translate("操作失败"));
             return false;
         }
     }

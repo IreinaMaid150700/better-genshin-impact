@@ -1,3 +1,4 @@
+using BetterGenshinImpact.Service.I18n;
 using ICSharpCode.AvalonEdit;
 using ICSharpCode.AvalonEdit.Highlighting;
 using Markdig.Extensions.Alerts;
@@ -714,7 +715,7 @@ internal sealed class MarkdownWpfRenderer
 
         var copyButton = new Button
         {
-            Content = "复制",
+            Content = I18nService.Instance.Translate("复制"),
             Padding = new Thickness(8, 2, 8, 2),
             HorizontalAlignment = HorizontalAlignment.Right,
             VerticalAlignment = VerticalAlignment.Center,

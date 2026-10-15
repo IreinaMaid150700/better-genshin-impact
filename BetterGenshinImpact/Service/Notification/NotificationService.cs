@@ -1,3 +1,4 @@
+using BetterGenshinImpact.Service.I18n;
 using System;
 using System.Net.Http;
 using System.Text.Json;
@@ -507,7 +508,7 @@ public class NotificationService : IHostedService, IDisposable
         }
         catch (Exception ex)
         {
-            return NotificationTestResult.Error($"测试通知时发生未知错误: {ex.Message}");
+            return NotificationTestResult.Error(string.Format(I18nService.Instance.Translate("测试通知时发生未知错误: {0}"), ex.Message));
         }
         finally
         {
@@ -525,7 +526,7 @@ public class NotificationService : IHostedService, IDisposable
         {
             Event = NotificationEvent.Test.Code,
             Result = NotificationEventResult.Success,
-            Message = "这是一条测试通知信息"
+            Message = I18nService.Instance.Translate("这是一条测试通知信息")
         };
 
         if (TaskContext.Instance().IsInitialized)

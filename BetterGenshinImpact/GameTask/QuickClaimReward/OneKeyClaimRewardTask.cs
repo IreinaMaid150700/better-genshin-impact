@@ -1,3 +1,4 @@
+using BetterGenshinImpact.Service.I18n;
 using BetterGenshinImpact.Core.Input;
 using BetterGenshinImpact.Core.Recognition;
 using BetterGenshinImpact.GameTask.Common;
@@ -67,7 +68,7 @@ public class OneKeyClaimRewardTask : Singleton<OneKeyClaimRewardTask>
     {
         if (!TaskContext.Instance().IsInitialized)
         {
-            Toast.Warning("请先启动");
+            Toast.Warning(I18nService.Instance.Translate("请先启动"));
             return false;
         }
 

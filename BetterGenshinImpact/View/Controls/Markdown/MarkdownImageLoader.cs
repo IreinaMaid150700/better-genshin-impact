@@ -1,3 +1,4 @@
+using BetterGenshinImpact.Service.I18n;
 using SixLabors.ImageSharp.PixelFormats;
 using System;
 using System.Collections.Concurrent;
@@ -337,7 +338,7 @@ internal sealed class MarkdownImagePresenter : Grid
 
         _retryButton = new Button
         {
-            Content = "重新加载",
+            Content = I18nService.Instance.Translate("重新加载"),
             MinWidth = 88,
             Padding = new Thickness(12, 4, 12, 4),
             Margin = request.IsInline ? new Thickness(8, 0, 0, 0) : new Thickness(0, 12, 0, 0),

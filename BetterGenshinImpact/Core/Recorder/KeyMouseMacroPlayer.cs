@@ -4,6 +4,7 @@ using BetterGenshinImpact.GameTask;
 using BetterGenshinImpact.GameTask.Common;
 using BetterGenshinImpact.GameTask.Common.Map;
 using BetterGenshinImpact.Helpers;
+using BetterGenshinImpact.Service.I18n;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -23,7 +24,7 @@ public class KeyMouseMacroPlayer
     {
         if (!TaskContext.Instance().IsInitialized)
         {
-            Toast.Warning("请先在启动页，启动截图器再使用本功能");
+            Toast.Warning(I18nService.Instance.Translate("请先在启动页，启动截图器再使用本功能"));
             return;
         }
 

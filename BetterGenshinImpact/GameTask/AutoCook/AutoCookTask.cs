@@ -11,7 +11,7 @@ using BetterGenshinImpact.Service;
 using Vanara.PInvoke;
 using static BetterGenshinImpact.GameTask.Common.TaskControl;
 
-namespace BetterGenshinImpact.GameTask.AutoCook;
+namespace BetterGenshinImpact.GameTask.AutoCook;        
 
 public class AutoCookTask : ISoloTask
 {

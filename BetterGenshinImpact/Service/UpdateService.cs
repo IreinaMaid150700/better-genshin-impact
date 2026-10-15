@@ -6,6 +6,7 @@ using BetterGenshinImpact.Service.Interface;
 using BetterGenshinImpact.View.Windows;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
+using BetterGenshinImpact.Service.I18n;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -73,7 +74,7 @@ public class UpdateService : IUpdateService
             {
                 if (option.Trigger == UpdateTrigger.Manual)
                 {
-                    await ThemedMessageBox.InformationAsync("当前已是最新版本！");
+                    await ThemedMessageBox.InformationAsync(I18nService.Instance.Translate("当前已是最新版本！"));
                 }
 
                 return;
@@ -102,7 +103,7 @@ public class UpdateService : IUpdateService
         {
             Owner = Application.Current.MainWindow,
             WindowStartupLocation = WindowStartupLocation.CenterOwner,
-            Title = $"发现新版本 {newVersion}",
+            Title = string.Format(I18nService.Instance.Translate("发现新版本 {0}"), newVersion),
             UserInteraction = async (sender, button) =>
             {
                 CheckUpdateWindow win = (CheckUpdateWindow)sender;
@@ -130,7 +131,7 @@ public class UpdateService : IUpdateService
                         string updaterExePath = Global.Absolute("BetterGI.update.exe");
                         if (!File.Exists(updaterExePath))
                         {
-                            await ThemedMessageBox.ErrorAsync("更新程序不存在，请选择其他更新方式！");
+                            await ThemedMessageBox.ErrorAsync(I18nService.Instance.Translate("更新程序不存在，请选择其他更新方式！"));
                             return;
                         }
 
@@ -219,7 +220,7 @@ public class UpdateService : IUpdateService
                 else if (result.Code < 0)
                 {
                     Toast.Error(
-                        $"Mirror酱源更新检查失败，意料之外的严重错误，请及时联系 Mirror 酱的技术支持处理\n，错误代码：{result.Code}，错误信息：{result.Msg}");
+                        string.Format(I18nService.Instance.Translate("Mirror酱源更新检查失败，意料之外的严重错误，请及时联系 Mirror 酱的技术支持处理\n，错误代码：{0}，错误信息：{1}"), result.Code, result.Msg));
                     return string.Empty;
                 }
                 else
@@ -231,7 +232,7 @@ public class UpdateService : IUpdateService
         catch (Exception e)
         {
             _logger.LogDebug(e, "Mirror源更新检查失败");
-            Toast.Warning($"Mirror源更新检查失败,{e.Message}");
+            Toast.Warning(string.Format(I18nService.Instance.Translate("Mirror源更新检查失败,{0}"), e.Message));
 
         }
 
@@ -242,27 +243,27 @@ public class UpdateService : IUpdateService
     {
         if (response.Code == 7001)
         {
-            Toast.Warning("Mirror酱 CDK 已过期，请重新获取CDK");
+            Toast.Warning(I18nService.Instance.Translate("Mirror酱 CDK 已过期，请重新获取CDK"));
         }
         else if (response.Code == 7002)
         {
-            Toast.Warning("Mirror酱 CDK 错误!");
+            Toast.Warning(I18nService.Instance.Translate("Mirror酱 CDK 错误!"));
         }
         else if (response.Code == 7003)
         {
-            Toast.Warning("Mirror酱 CDK 今日下载次数已达上限");
+            Toast.Warning(I18nService.Instance.Translate("Mirror酱 CDK 今日下载次数已达上限"));
         }
         else if (response.Code == 7004)
         {
-            Toast.Warning("Mirror酱 CDK 类型和待下载的资源不匹配");
+            Toast.Warning(I18nService.Instance.Translate("Mirror酱 CDK 类型和待下载的资源不匹配"));
         }
         else if (response.Code == 7005)
         {
-            Toast.Warning("Mirror酱 CDK 已被封禁");
+            Toast.Warning(I18nService.Instance.Translate("Mirror酱 CDK 已被封禁"));
         }
         else
         {
-            Toast.Warning($"Mirror酱源更新检查失败，错误信息：{response.Msg}");
+            Toast.Warning(string.Format(I18nService.Instance.Translate("Mirror酱源更新检查失败，错误信息：{0}"), response.Msg));
         }
     }
 

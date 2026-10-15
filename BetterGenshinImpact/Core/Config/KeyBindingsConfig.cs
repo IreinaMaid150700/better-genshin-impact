@@ -3,6 +3,7 @@ using System;
 using System.Windows.Forms;
 using System.Windows.Input;
 using Windows.Networking.PushNotifications;
+using BetterGenshinImpact.Service.I18n;
 using static Vanara.PInvoke.User32;
 
 namespace BetterGenshinImpact.Core.Config;
@@ -324,14 +325,14 @@ public static class KeyIdConverter
         return value switch
         {
             // 需要单独翻译的按键
-            KeyId.None => "<未指定>",
-            KeyId.Unknown => "<未知>",
-            KeyId.MouseLeftButton => "鼠标左键",
-            KeyId.MouseRightButton => "鼠标右键",
-            KeyId.MouseMiddleButton => "鼠标中键",
-            KeyId.MouseSideButton1 => "鼠标侧键1",
-            KeyId.MouseSideButton2 => "鼠标侧键2",
-            KeyId.Apps => "菜单键",
+            KeyId.None => I18nService.Instance.Translate("<未指定>"),
+            KeyId.Unknown => I18nService.Instance.Translate("<未知>"),
+            KeyId.MouseLeftButton => I18nService.Instance.Translate("鼠标左键"),
+            KeyId.MouseRightButton => I18nService.Instance.Translate("鼠标右键"),
+            KeyId.MouseMiddleButton => I18nService.Instance.Translate("鼠标中键"),
+            KeyId.MouseSideButton1 => I18nService.Instance.Translate("鼠标侧键1"),
+            KeyId.MouseSideButton2 => I18nService.Instance.Translate("鼠标侧键2"),
+            KeyId.Apps => I18nService.Instance.Translate("菜单键"),
             // 无需单独翻译的部分
             _ => EnglishKeyNameToChinese(value),
         };
@@ -342,7 +343,7 @@ public static class KeyIdConverter
         var engName = ToEnglishName(value);
         if (engName.StartsWith("Left ") || engName.StartsWith("Right "))
         {
-            return engName.Replace("Left ", "左").Replace("Right ", "右");
+            return engName.Replace("Left ", I18nService.Instance.Translate("左")).Replace("Right ", I18nService.Instance.Translate("右"));
         }
         return engName;
     }
