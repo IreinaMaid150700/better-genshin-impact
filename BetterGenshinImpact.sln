@@ -21,6 +21,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Build", "Build", "{DB7D66B7
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BetterGenshinImpact.I18nSync", "Build\BetterGenshinImpact.I18nSync\BetterGenshinImpact.I18nSync.csproj", "{B63FC99D-3C56-4F95-A80B-8AAFD8482C76}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BetterGenshinImpact.OcrDataTool", "Test\BetterGenshinImpact.OcrDataTool\BetterGenshinImpact.OcrDataTool.csproj", "{77270E37-3B25-4299-87BA-0A030F5EC75A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -85,6 +87,14 @@ Global
 		{B63FC99D-3C56-4F95-A80B-8AAFD8482C76}.Release|Any CPU.Build.0 = Release|Any CPU
 		{B63FC99D-3C56-4F95-A80B-8AAFD8482C76}.Release|x64.ActiveCfg = Release|Any CPU
 		{B63FC99D-3C56-4F95-A80B-8AAFD8482C76}.Release|x64.Build.0 = Release|Any CPU
+		{77270E37-3B25-4299-87BA-0A030F5EC75A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{77270E37-3B25-4299-87BA-0A030F5EC75A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{77270E37-3B25-4299-87BA-0A030F5EC75A}.Debug|x64.ActiveCfg = Debug|x64
+		{77270E37-3B25-4299-87BA-0A030F5EC75A}.Debug|x64.Build.0 = Debug|x64
+		{77270E37-3B25-4299-87BA-0A030F5EC75A}.Release|Any CPU.ActiveCfg = Release|x64
+		{77270E37-3B25-4299-87BA-0A030F5EC75A}.Release|Any CPU.Build.0 = Release|x64
+		{77270E37-3B25-4299-87BA-0A030F5EC75A}.Release|x64.ActiveCfg = Release|x64
+		{77270E37-3B25-4299-87BA-0A030F5EC75A}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -93,6 +103,7 @@ Global
 		{27AF227E-BE44-450F-8E95-C1AD4FDE14BE} = {02CEA57F-C24B-40F9-AF31-F1D4F3BDB4BF}
 		{7DA575C0-8D1E-4BD2-AEDB-5471D8906B98} = {02CEA57F-C24B-40F9-AF31-F1D4F3BDB4BF}
 		{B63FC99D-3C56-4F95-A80B-8AAFD8482C76} = {DB7D66B7-B4DA-4A16-8BBF-3DDA83654C53}
+		{77270E37-3B25-4299-87BA-0A030F5EC75A} = {02CEA57F-C24B-40F9-AF31-F1D4F3BDB4BF}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {352D8B78-9DE3-4E58-985F-FADD22594DB4}

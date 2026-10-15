@@ -89,7 +89,7 @@ public class PaddleOcrService : IOcrService, IDisposable
             };
 
 
-        private static PaddleOcrModelType Create(
+        internal static PaddleOcrModelType Create(
             BgiOnnxModel detectionModel,
             OcrVersionConfig detectionVersion,
             BgiOnnxModel recognitionModel,
@@ -338,7 +338,7 @@ public class PaddleOcrService : IOcrService, IDisposable
     /// <param name="src">原始图像。</param>
     /// <param name="points">按左上、右上、右下、左下排列的四个顶点。</param>
     /// <returns>透视变换后的文字图像。</returns>
-    private static Mat GetRotateCropImage(Mat src, Point2f[] points)
+    internal static Mat GetRotateCropImage(Mat src, Point2f[] points)
     {
         if (points.Length != 4)
         {
@@ -387,7 +387,7 @@ public class PaddleOcrService : IOcrService, IDisposable
         return Math.Sqrt(deltaX * deltaX + deltaY * deltaY);
     }
 
-    private static PaddleOcrDetectionBox[] SortBoxes(PaddleOcrDetectionBox[] source)
+    internal static PaddleOcrDetectionBox[] SortBoxes(PaddleOcrDetectionBox[] source)
     {
         var boxes = source
             .OrderBy(box => box.Points[0].Y)

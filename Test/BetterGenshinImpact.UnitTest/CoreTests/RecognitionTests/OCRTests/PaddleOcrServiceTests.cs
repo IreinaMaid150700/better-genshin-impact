@@ -58,6 +58,11 @@ namespace BetterGenshinImpact.UnitTest.CoreTests.RecognitionTests.OCRTests
         [InlineData("it", "Incarichi")]
         [InlineData("it", "Pesca")]
         [InlineData("it", "Katheryne")]
+        // 越南语：带声调的预组合字母（ậ ở Ủ ỗ ể ự ộ）不在现有拉丁识别模型字典中，接入越南语识别模型前预期失败
+        [InlineData("vi", "Nhận thưởng", "Nhậnthưởng")]
+        [InlineData("vi", "Ủy Thác Mỗi Ngày", "ỦyThácMỗiNgày")]
+        [InlineData("vi", "Phái Đi Thám Hiểm", "PháiĐiThámHiểm")]
+        [InlineData("vi", "Tự động", "Tựđộng")]
         /// <summary>
         /// 测试识别各种文字，结果为成功
         /// </summary>

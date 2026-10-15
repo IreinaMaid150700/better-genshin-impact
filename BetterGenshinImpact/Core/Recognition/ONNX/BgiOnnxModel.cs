@@ -163,6 +163,16 @@ public class BgiOnnxModel
         return RegisteredModels.ToImmutableList();
     }
 
+    /// <summary>
+    /// 创建不加入注册列表的模型，仅供开发工具加载任意路径的候选模型（如评估新训练的 OCR 模型）
+    /// </summary>
+    /// <param name="name">模型名称，同时用作缓存目录名</param>
+    /// <param name="modelPath">模型文件路径，可为绝对路径</param>
+    internal static BgiOnnxModel CreateUnregistered(string name, string modelPath)
+    {
+        return new BgiOnnxModel(name, modelPath, Path.Combine(ModelCacheRelativePath, name));
+    }
+
     private static BgiOnnxModel Register(string name, string modelRelativePath)
     {
         return Register(name, modelRelativePath, Path.Combine(ModelCacheRelativePath, name));
