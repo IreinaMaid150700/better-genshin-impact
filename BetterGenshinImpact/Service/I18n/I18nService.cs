@@ -63,6 +63,12 @@ public sealed class I18nService : INotifyPropertyChanged
         OnPropertyChanged(nameof(Revision));
     }
 
+    /// <summary>
+    /// 标记需要同步到语言文件的 Key，并原样返回。
+    /// 用于作为配置值保存的中文字符串：值本身不变，界面通过 I18nKeyConverter 翻译显示。
+    /// </summary>
+    public static string Key(string key) => key;
+
     public string Translate(string key)
     {
         if (_useTraditionalChinese)

@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media;
 using System.Windows.Threading;
+using BetterGenshinImpact.Service.I18n;
 using BetterGenshinImpact.Core.Config;
 using BetterGenshinImpact.Service.ChildSession;
 using BetterGenshinImpact.View.Windows;
@@ -453,7 +454,7 @@ public partial class ChildSessionWindowViewModel : ViewModel
     {
         var fileDialog = new OpenFileDialog
         {
-            Title = "选择要在 BetterGI 桌面分身中以管理员权限启动的程序",
+            Title = I18nService.Instance.Translate("选择要在 BetterGI 桌面分身中以管理员权限启动的程序"),
             Filter = "Windows 程序 (*.exe)|*.exe",
             CheckFileExists = true,
             CheckPathExists = true,

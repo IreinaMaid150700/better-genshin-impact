@@ -1,3 +1,4 @@
+using BetterGenshinImpact.Service.I18n;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -264,7 +265,7 @@ public sealed class MaskMapPointService : IMaskMapPointService
     {
         if (!int.TryParse(point.Id, out var pointId))
         {
-            return new MaskMapPointInfo { Text = $"点位 ID 非法: {point.Id}" };
+            return new MaskMapPointInfo { Text = string.Format(I18nService.Instance.Translate("点位 ID 非法: {0}"), point.Id) };
         }
 
         try
@@ -272,7 +273,7 @@ public sealed class MaskMapPointService : IMaskMapPointService
             var resp = await GetMihoyoCompatibleApi().GetPointInfoAsync(new PointInfoRequest { PointId = pointId }, ct);
             if (resp.Retcode != 0 || resp.Data == null)
             {
-                return new MaskMapPointInfo { Text = $"查询失败: {resp.Retcode} {resp.Message}" };
+                return new MaskMapPointInfo { Text = string.Format(I18nService.Instance.Translate("查询失败: {0} {1}"), resp.Retcode, resp.Message) };
             }
 
             var content = (resp.Data.Info.Content ?? string.Empty).Trim();
@@ -288,7 +289,7 @@ public sealed class MaskMapPointService : IMaskMapPointService
 
             return new MaskMapPointInfo
             {
-                Text = string.IsNullOrEmpty(content) ? "暂无描述" : content,
+                Text = string.IsNullOrEmpty(content) ? I18nService.Instance.Translate("暂无描述") : content,
                 ImageUrl = imageUrl,
                 UrlList = urlList
             };
@@ -296,7 +297,7 @@ public sealed class MaskMapPointService : IMaskMapPointService
         catch (Exception ex)
         {
             _logger.LogDebug(ex, "查询米游社地图点位详情失败");
-            return new MaskMapPointInfo { Text = "查询失败" };
+            return new MaskMapPointInfo { Text = I18nService.Instance.Translate("查询失败") };
         }
     }
 
@@ -554,13 +555,13 @@ public sealed class MaskMapPointService : IMaskMapPointService
     {
         if (!long.TryParse(point.Id, out var markerId))
         {
-            return new MaskMapPointInfo { Text = $"点位 ID 非法: {point.Id}" };
+            return new MaskMapPointInfo { Text = string.Format(I18nService.Instance.Translate("点位 ID 非法: {0}"), point.Id) };
         }
 
         var markerById = await GetKongyingMarkerByIdCachedAsync(ct);
         if (!markerById.TryGetValue(markerId, out var marker))
         {
-            return new MaskMapPointInfo { Text = "暂无描述" };
+            return new MaskMapPointInfo { Text = I18nService.Instance.Translate("暂无描述") };
         }
 
         var text = (marker.Content ?? string.Empty).Trim();
@@ -571,7 +572,7 @@ public sealed class MaskMapPointService : IMaskMapPointService
 
         return new MaskMapPointInfo
         {
-            Text = string.IsNullOrWhiteSpace(text) ? "暂无描述" : text,
+            Text = string.IsNullOrWhiteSpace(text) ? I18nService.Instance.Translate("暂无描述") : text,
             ImageUrl = marker.Picture ?? string.Empty,
             UrlList = string.IsNullOrWhiteSpace(marker.VideoPath)
                 ? Array.Empty<MaskMapLink>()

@@ -1,3 +1,4 @@
+using BetterGenshinImpact.Service.I18n;
 using BetterGenshinImpact.GameTask.AutoCombo.ComboRun;
 using BetterGenshinImpact.Helpers;
 using System;
@@ -20,7 +21,7 @@ public class ComboCombatTaskFactory : ICombatTaskFactory
             // 与 TaskRunner.Init 的用户指导型错误处理一致：弹 Toast 提示 + 抛异常中断任务
             UIDispatcherHelper.Invoke(() =>
             {
-                Toast.Warning("尚未构建行为树，请先运行一次自动连招任务完成建树");
+                Toast.Warning(I18nService.Instance.Translate("尚未构建行为树，请先运行一次自动连招任务完成建树"));
             });
             throw new Exception("尚未构建行为树，请先运行一次自动连招任务完成建树");
         }

@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text.Json;
 using System.Threading.Tasks;
+using BetterGenshinImpact.Service.I18n;
 using BetterGenshinImpact.Core.Config;
 using BetterGenshinImpact.GameTask.Common;
 using BetterGenshinImpact.Helpers;
@@ -138,7 +139,7 @@ public class TravelsDiaryDetailManager
         {
             if (!skipToast)
             {
-                Toast.Warning("cookie 未登录或已失效，请重新获取后重试");
+                Toast.Warning(I18nService.Instance.Translate("cookie 未登录或已失效，请重新获取后重试"));
             }
             else
             {

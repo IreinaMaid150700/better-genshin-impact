@@ -1,3 +1,4 @@
+using BetterGenshinImpact.Service.I18n;
 using System;
 using System.Collections.Concurrent;
 using System.Diagnostics;
@@ -464,6 +465,6 @@ internal sealed class InstanceRequestHandler
         }
 
         throw new InvalidOperationException(
-            response.ErrorMessage ?? response.ErrorCode ?? "实例 IPC 请求失败。");
+            response.ErrorMessage ?? response.ErrorCode ?? I18nService.Instance.Translate("实例 IPC 请求失败。"));
     }
 }

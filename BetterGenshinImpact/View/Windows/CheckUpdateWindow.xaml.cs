@@ -1,3 +1,4 @@
+using BetterGenshinImpact.Service.I18n;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System;
@@ -221,7 +222,7 @@ public partial class CheckUpdateWindow : FluentWindow
         string updaterExePath = Global.Absolute("BetterGI.update.exe");
         if (!File.Exists(updaterExePath))
         {
-            await ThemedMessageBox.ErrorAsync("更新程序不存在，请选择其他更新方式！");
+            await ThemedMessageBox.ErrorAsync(I18nService.Instance.Translate("更新程序不存在，请选择其他更新方式！"));
             return;
         }
 

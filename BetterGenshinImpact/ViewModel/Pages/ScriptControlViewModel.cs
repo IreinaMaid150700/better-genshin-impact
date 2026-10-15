@@ -1,3 +1,4 @@
+using BetterGenshinImpact.Service.I18n;
 using BetterGenshinImpact.Core.Config;
 using BetterGenshinImpact.Core.Script;
 using BetterGenshinImpact.Core.Script.Group;
@@ -120,7 +121,7 @@ public partial class ScriptControlViewModel : ViewModel
     private void ClearTasks()
     {
         // 确认？
-        var result = ThemedMessageBox.Question("是否清空所有任务？", "清空任务", MessageBoxButton.YesNo, System.Windows.MessageBoxResult.No);
+        var result = ThemedMessageBox.Question(I18nService.Instance.Translate("是否清空所有任务？"), I18nService.Instance.Translate("清空任务"), MessageBoxButton.YesNo, System.Windows.MessageBoxResult.No);
         if (result != System.Windows.MessageBoxResult.Yes)
         {
             return;
@@ -218,7 +219,7 @@ public partial class ScriptControlViewModel : ViewModel
 
         CheckBox mergerStatsSwitch = new CheckBox
         {
-            Content = "合并相邻同名配置组",
+            Content = I18nService.Instance.Translate("合并相邻同名配置组"),
             VerticalAlignment = VerticalAlignment.Center
         };
         stackPanel.Children.Add(mergerStatsSwitch);
@@ -226,7 +227,7 @@ public partial class ScriptControlViewModel : ViewModel
         // 开关控件：ToggleButton 或 CheckBox
         CheckBox faultStatsSwitch = new CheckBox
         {
-            Content = "异常情况统计",
+            Content = I18nService.Instance.Translate("异常情况统计"),
             VerticalAlignment = VerticalAlignment.Center
         };
         stackPanel.Children.Add(faultStatsSwitch);
@@ -234,13 +235,13 @@ public partial class ScriptControlViewModel : ViewModel
         // 开关控件：ToggleButton 或 CheckBox
         CheckBox hoeingStatsSwitch = new CheckBox
         {
-            Content = "统计锄地摩拉怪物数",
+            Content = I18nService.Instance.Translate("统计锄地摩拉怪物数"),
             VerticalAlignment = VerticalAlignment.Center
         };
 
         CheckBox GenerateFarmingPlanData = new CheckBox
         {
-            Content = "生成锄地规划数据",
+            Content = I18nService.Instance.Translate("生成锄地规划数据"),
             VerticalAlignment = VerticalAlignment.Center
         };
         stackPanel.Children.Add(GenerateFarmingPlanData);
@@ -308,7 +309,7 @@ public partial class ScriptControlViewModel : ViewModel
         //PrimaryButtonText
         var uiMessageBox = new Wpf.Ui.Controls.MessageBox
         {
-            Title = "日志分析",
+            Title = I18nService.Instance.Translate("日志分析"),
             Content = stackPanel,
             CloseButtonText = "取消",
             PrimaryButtonText = "确定",
@@ -322,7 +323,7 @@ public partial class ScriptControlViewModel : ViewModel
         {
             WebpageWindow cookieWin = new()
             {
-                Title = "日志分析",
+                Title = I18nService.Instance.Translate("日志分析"),
                 Width = 800,
                 Height = 600,
                 Owner = uiMessageBox,
@@ -376,7 +377,7 @@ public partial class ScriptControlViewModel : ViewModel
 
             WebpageWindow win = new()
             {
-                Title = "日志分析",
+                Title = I18nService.Instance.Translate("日志分析"),
                 Width = 800,
                 Height = 600,
                 Owner = Application.Current.MainWindow,
@@ -392,7 +393,7 @@ public partial class ScriptControlViewModel : ViewModel
             }
 
             LogParse.HtmlGenerationStatusChanged += OnHtmlGenerationStatusChanged;
-            Toast.Information("正在准备数据...");
+            Toast.Information(I18nService.Instance.Translate("正在准备数据..."));
             List<(string FileName, string Date)> fs = LogParse.GetLogFiles(LogPath);
             if (dayRangeValue != "All")
             {
@@ -409,7 +410,7 @@ public partial class ScriptControlViewModel : ViewModel
 
             if ((hoeingStatsSwitch.IsChecked ?? false) && string.IsNullOrEmpty(cookieValue))
             {
-                Toast.Warning("未填写cookie，此次将不启用锄地统计！");
+                Toast.Warning(I18nService.Instance.Translate("未填写cookie，此次将不启用锄地统计！"));
             }
 
             //真正存储的gameinfo
@@ -419,20 +420,20 @@ public partial class ScriptControlViewModel : ViewModel
             {
                 try
                 {
-                    Toast.Information("正在从米游社获取旅行札记数据，请耐心等待！");
+                    Toast.Information(I18nService.Instance.Translate("正在从米游社获取旅行札记数据，请耐心等待！"));
                     gameInfo = await TravelsDiaryDetailManager.UpdateTravelsDiaryDetailManager(cookieValue);
-                    Toast.Success($"米游社数据获取成功，开始进行解析，请耐心等待！");
+                    Toast.Success(I18nService.Instance.Translate("米游社数据获取成功，开始进行解析，请耐心等待！"));
                 }
                 catch (Exception e)
                 {
                     _logger.LogWarning(e, "日志分析获取米游社数据失败：{Msg}", e.Message);
                     if (realGameInfo != null)
                     {
-                        Toast.Warning($"访问米游社失败：{e.Message}，此次锄地统计不更新最新数据");
+                        Toast.Warning(string.Format(I18nService.Instance.Translate("访问米游社失败：{0}，此次锄地统计不更新最新数据"), e.Message));
                     }
                     else
                     {
-                        Toast.Warning($"访问米游社失败：{e.Message}，此次不启用锄地统计");
+                        Toast.Warning(string.Format(I18nService.Instance.Translate("访问米游社失败：{0}，此次不启用锄地统计"), e.Message));
                     }
                 }
             }
@@ -459,7 +460,7 @@ public partial class ScriptControlViewModel : ViewModel
 
             if (configGroupEntities.Count == 0)
             {
-                Toast.Warning("未解析出日志记录！");
+                Toast.Warning(I18nService.Instance.Translate("未解析出日志记录！"));
                 LogParse.HtmlGenerationStatusChanged -= OnHtmlGenerationStatusChanged;
             }
             else
@@ -478,7 +479,7 @@ public partial class ScriptControlViewModel : ViewModel
                 catch (Exception ex)
                 {
                     LogParse.HtmlGenerationStatusChanged -= OnHtmlGenerationStatusChanged;
-                    Toast.Error($"生成日志分析时出错: {ex.Message}");
+                    Toast.Error(string.Format(I18nService.Instance.Translate("生成日志分析时出错: {0}"), ex.Message));
                 }
             }
         }
@@ -894,7 +895,7 @@ public partial class ScriptControlViewModel : ViewModel
         }
         catch (Exception ex)
         {
-            Toast.Error($"加载地图追踪任务失败: {ex.Message}");
+            Toast.Error(string.Format(I18nService.Instance.Translate("加载地图追踪任务失败: {0}"), ex.Message));
             _logger.LogError(ex, "加载地图追踪任务时发生错误");
         }
     }
@@ -914,12 +915,12 @@ public partial class ScriptControlViewModel : ViewModel
         var stackPanel = new StackPanel();
         CheckBox excludeCheckBox = new()
         {
-            Content = "排除已选择过的目录",
+            Content = I18nService.Instance.Translate("排除已选择过的目录"),
             VerticalAlignment = VerticalAlignment.Center,
         };
         CheckBox deepCheckBox = new()
         {
-            Content = "深度搜索",
+            Content = I18nService.Instance.Translate("深度搜索"),
             VerticalAlignment = VerticalAlignment.Center,
         };
         TextBox filterTextBox = new()
@@ -1549,7 +1550,7 @@ public partial class ScriptControlViewModel : ViewModel
                 }
                 catch (Exception e)
                 {
-                    Toast.Warning($"加载单个脚本失败：{e.Message}");
+                    Toast.Warning(string.Format(I18nService.Instance.Translate("加载单个脚本失败：{0}"), e.Message));
                     return null;
                 }
             })
@@ -1615,7 +1616,7 @@ public partial class ScriptControlViewModel : ViewModel
         var editor = new ScriptGroupProjectEditor(viewModel);
         var uiMessageBox = new Wpf.Ui.Controls.MessageBox
         {
-            Title = "修改通用设置",
+            Title = I18nService.Instance.Translate("修改通用设置"),
             Content = editor,
             CloseButtonText = "关闭",
             Owner = Application.Current.MainWindow,
@@ -1654,13 +1655,13 @@ public partial class ScriptControlViewModel : ViewModel
             var ui = item.Project.LoadSettingUi(item.JsScriptSettingsObject);
             if (ui == null)
             {
-                Toast.Warning("此脚本未提供自定义配置");
+                Toast.Warning(I18nService.Instance.Translate("此脚本未提供自定义配置"));
                 return;
             }
 
             var uiMessageBox = new Wpf.Ui.Controls.MessageBox
             {
-                Title = "修改JS脚本自定义设置    ",
+                Title = I18nService.Instance.Translate("修改JS脚本自定义设置    "),
                 Content = ui,
                 CloseButtonText = "关闭",
                 Owner = Application.Current.MainWindow,
@@ -1677,7 +1678,7 @@ public partial class ScriptControlViewModel : ViewModel
         }
         else
         {
-            Toast.Warning("只有JS脚本才有自定义配置");
+            Toast.Warning(I18nService.Instance.Translate("只有JS脚本才有自定义配置"));
         }
     }
 
@@ -2011,7 +2012,7 @@ public partial class ScriptControlViewModel : ViewModel
 
         var dialogWindow = new FluentWindow
         {
-            Title = "配置组设置",
+            Title = I18nService.Instance.Translate("配置组设置"),
             Content = new ScriptGroupConfigView(new ScriptGroupConfigViewModel(TaskContext.Instance().Config, SelectedScriptGroup.Config)),
             Width = 800,
             Height = 600,
@@ -2159,7 +2160,7 @@ public partial class ScriptControlViewModel : ViewModel
         // DisplayMemberPath="Value"
         var uiMessageBox = new Wpf.Ui.Controls.MessageBox
         {
-            Title = "选择需要继续执行的进度记录",
+            Title = I18nService.Instance.Translate("选择需要继续执行的进度记录"),
             Content = new ScrollViewer
             {
                 Content = stackPanel,
@@ -2278,14 +2279,14 @@ public partial class ScriptControlViewModel : ViewModel
 
         var loopCheckBox = new CheckBox
         {
-            Content = "循环",
+            Content = I18nService.Instance.Translate("循环"),
         };
 
 
         // 创建全选按钮
         var selectAllCheckBox = new CheckBox
         {
-            Content = "全选",
+            Content = I18nService.Instance.Translate("全选"),
             IsThreeState = true
         };
         selectAllCheckBox.Checked += (s, e) =>
@@ -2362,7 +2363,7 @@ public partial class ScriptControlViewModel : ViewModel
 
         var uiMessageBox = new Wpf.Ui.Controls.MessageBox
         {
-            Title = "选择需要执行的配置组",
+            Title = I18nService.Instance.Translate("选择需要执行的配置组"),
             Content = new ScrollViewer
             {
                 Content = stackPanel,

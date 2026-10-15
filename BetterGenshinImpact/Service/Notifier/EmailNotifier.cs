@@ -1,3 +1,4 @@
+using BetterGenshinImpact.Service.I18n;
 using System.IO;
 using System.Text;
 using System.Threading.Tasks;
@@ -97,7 +98,7 @@ namespace BetterGenshinImpact.Service.Notifier
             }
             catch (System.Exception ex)
             {
-                var errorMessage = $"发送邮件失败: {ex.Message}";
+                var errorMessage = string.Format(I18nService.Instance.Translate("发送邮件失败: {0}"), ex.Message);
                 throw new NotifierException(errorMessage);
             }
         }

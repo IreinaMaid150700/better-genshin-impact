@@ -2,6 +2,7 @@ using BetterGenshinImpact.Core.Config;
 using BetterGenshinImpact.Service.Interface;
 using BetterGenshinImpact.View.Windows;
 using OpenCvSharp;
+using BetterGenshinImpact.Service.I18n;
 using System;
 using System.IO;
 using System.Runtime.ExceptionServices;
@@ -583,9 +584,9 @@ public class ConfigService : IConfigService
         }
 
         var coreException = exception.GetBaseException();
-        var coreStack = string.IsNullOrWhiteSpace(coreException.StackTrace) ? "无可用堆栈信息" : coreException.StackTrace;
+        var coreStack = string.IsNullOrWhiteSpace(coreException.StackTrace) ? I18nService.Instance.Translate("无可用堆栈信息") : coreException.StackTrace;
         var message = $"配置文件{operation}失败\n错误：{coreException.Message}\n堆栈：\n{coreStack}";
-        _ = ThemedMessageBox.ErrorAsync(message, "配置文件异常");
+        _ = ThemedMessageBox.ErrorAsync(message, I18nService.Instance.Translate("配置文件异常"));
     }
 
     /// <param name="Seq">生成快照时的改动版本号</param>

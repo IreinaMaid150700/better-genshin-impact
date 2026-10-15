@@ -1,3 +1,4 @@
+using BetterGenshinImpact.Service.I18n;
 using BetterGenshinImpact.Core.Input.Backends.WebSdk;
 using BetterGenshinImpact.Helpers;
 using BetterGenshinImpact.Service.Instance;
@@ -376,7 +377,7 @@ public partial class CloudWebHostWindow : Window
             _stoppingCaptureForClose = false;
             _isClosed = false;
             _statusTimer.Start();
-            await ThemedMessageBox.ErrorAsync($"停止截图器失败：{ex.Message}");
+            await ThemedMessageBox.ErrorAsync(string.Format(I18nService.Instance.Translate("停止截图器失败：{0}"), ex.Message));
         }
     }
 

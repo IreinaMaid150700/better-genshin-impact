@@ -1,6 +1,7 @@
 using BetterGenshinImpact.Service.Notifier.Exception;
 using BetterGenshinImpact.Service.Notifier.Interface;
 using Microsoft.Extensions.Logging;
+using BetterGenshinImpact.Service.I18n;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -190,9 +191,9 @@ public class NotifierManager
         }
 
         if (notifier == null)
-            return "通知类型未启用";
+            return I18nService.Instance.Translate("通知类型未启用");
         if (lease == null)
-            return "通知器正在被移除，请稍后重试";
+            return I18nService.Instance.Translate("通知器正在被移除，请稍后重试");
 
         try
         {

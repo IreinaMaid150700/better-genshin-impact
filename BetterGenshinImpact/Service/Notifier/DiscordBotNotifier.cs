@@ -1,3 +1,4 @@
+using BetterGenshinImpact.Service.I18n;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -247,7 +248,7 @@ public class DiscordBotNotifier : INotifier
         }
 
         var body = await response.Content.ReadAsStringAsync();
-        var detail = DiscordBotApiClient.ExtractErrorMessage(body) ?? response.ReasonPhrase ?? "未知错误";
+        var detail = DiscordBotApiClient.ExtractErrorMessage(body) ?? response.ReasonPhrase ?? I18nService.Instance.Translate("未知错误");
         throw new NotifierException($"Discord 推送失败 ({(int)response.StatusCode})：{detail}");
     }
 

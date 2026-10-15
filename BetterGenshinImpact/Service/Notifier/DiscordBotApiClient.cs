@@ -1,3 +1,4 @@
+using BetterGenshinImpact.Service.I18n;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
@@ -202,7 +203,7 @@ public sealed class DiscordBotApiClient
         var body = await response.Content.ReadAsStringAsync(ct);
         if (!response.IsSuccessStatusCode)
         {
-            var detail = ExtractErrorMessage(body) ?? response.ReasonPhrase ?? "未知错误";
+            var detail = ExtractErrorMessage(body) ?? response.ReasonPhrase ?? I18nService.Instance.Translate("未知错误");
             var hint = failureHint == null ? string.Empty : $"。{failureHint}";
             throw new NotifierException($"Discord API 请求失败 ({(int)response.StatusCode})：{detail}{hint}");
         }

@@ -11,6 +11,7 @@ using OpenCvSharp.Extensions;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using BetterGenshinImpact.Service.I18n;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
@@ -29,19 +30,19 @@ namespace BetterGenshinImpact.GameTask.GetGridIcons;
 public enum InventoryCountComparisonTarget
 {
     /// <summary>打开养成道具并扫描其全部页面。</summary>
-    [Description("养成道具")]
+    [I18nDescription("养成道具")]
     CharacterDevelopmentItems,
 
     /// <summary>打开食物并扫描其全部页面。</summary>
-    [Description("食物")]
+    [I18nDescription("食物")]
     Food,
 
     /// <summary>打开材料并扫描其全部页面。</summary>
-    [Description("材料")]
+    [I18nDescription("材料")]
     Materials,
 
     /// <summary>不进行导航，只截取并识别当前一页。</summary>
-    [Description("当前一页")]
+    [I18nDescription("当前一页")]
     CurrentPage,
 }
 
