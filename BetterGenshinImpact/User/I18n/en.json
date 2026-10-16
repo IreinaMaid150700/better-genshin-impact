@@ -1276,6 +1276,7 @@
   "游戏帧率": "Game FPS",
   "游戏当前渲染帧率。": "Current render frame rate of the game.",
   "游戏截图": "Game Screenshot",
+  "游戏窗口不在前台时继续烹饪，不占用焦点和鼠标；游戏请不要最小化": "Keep cooking while the game window is not in the foreground, without taking focus or the mouse. Do not minimize the game",
   "游戏请不要最小化，不在对话中的时候鼠标会自动吸附回游戏中": "Do not minimize the game. The mouse will snap back when you are not in dialog",
   "游戏鼠标模式下，按住 Alt 可临时释放并显示本地鼠标。": "In game mouse mode, hold Alt to temporarily release and show the local cursor.",
   "游泳检测(自动战斗过程中)": "Swim Detection (during auto combat)",
