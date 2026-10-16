@@ -130,8 +130,10 @@ Eval:
     - MultiLabelEncode:
         max_text_length: 1000
         gtc_encode: NRTRLabelEncode
+    # eval_mode: True giữ tỉ lệ ảnh -> chiều rộng khác nhau, không gộp được batch 64;
+    # False: resize + pad về 48x320 giống lúc train (đánh giá thật làm bằng OcrDataTool eval)
     - RecResizeImg:
-        eval_mode: True
+        eval_mode: False
         image_shape: [3, 48, 320]
     - KeepKeys:
         keep_keys:
