@@ -5,7 +5,8 @@ Global:
   model_name: latin_PP-OCRv5_mobile_rec
   debug: false
   use_gpu: true
-  epoch_num: 10
+  # T4 x2: ~42 phút/epoch với 300k mẫu -> 6 epoch ~4,5 giờ (giới hạn phiên Kaggle 12 giờ)
+  epoch_num: 6
   log_smooth_window: 20
   print_batch_step: 50
   save_model_dir: /kaggle/working/output/vi_rec
