@@ -147,4 +147,5 @@ Eval:
     shuffle: false
     drop_last: false
     batch_size_per_card: 64
-    num_workers: 2
+    # Không dùng worker phụ cho eval: lần train trên Kaggle bị treo giữa lần eval đầu tiên
+    num_workers: 0
